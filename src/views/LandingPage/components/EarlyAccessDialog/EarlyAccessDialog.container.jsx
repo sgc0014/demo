@@ -1,6 +1,6 @@
 /* eslint-disable implicit-arrow-linebreak */
 import { connect } from 'react-redux';
-import { setDialogOpen, setMessageOpen, earlyAccessStart } from 'src/store/earlyAccess/earlyAccess.actions';
+import { setDialogOpen, setMessageOpen, earlyAccessStart } from '@store/earlyAccess/earlyAccess.actions';
 
 const mapStateToProps = (state) => ({
     earlyAccessState: state.earlyAccess,

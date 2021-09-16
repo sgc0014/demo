@@ -1,10 +1,9 @@
 /* eslint-disable implicit-arrow-linebreak */
+import { signoutStart } from '@store/auth/auth.actions';
 import { connect } from 'react-redux';
 // import { setDialogOpen } from 'src/store/earlyAccess/earlyAccess.actions';
-import { RootState } from '../../../../store';
-import { signoutStart } from '../../../../store/auth/auth.actions';
 
-const mapStateToProps = (state:RootState) => ({
+const mapStateToProps = (state:any) => ({
   auth: state.auth,
   // userState: state.user,
 });

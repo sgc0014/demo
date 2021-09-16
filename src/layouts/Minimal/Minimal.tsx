@@ -2,8 +2,6 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Topbar, Footer } from "../Main/components";
 
-
-
 interface IProps {
   children: React.ReactNode;
   noFooter: boolean;
@@ -12,7 +10,7 @@ const useStyles = makeStyles(() => ({
   root: {},
 }));
 
-const Minimal:any = (props:IProps) => {
+const Minimal: React.FC<IProps> = (props) => {
   const classes = useStyles();
   const { children, noFooter } = props;
   // if (window.wiser) {

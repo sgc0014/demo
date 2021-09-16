@@ -20,7 +20,8 @@
       "@views/*": ["src/views/*"],
       "@theme/*": ["src/theme/*"],
       "@common/*": ["src/common/*"],
-      "@store/*":["src/store/*"]
+      "@store/*":["src/store/*"],
+      "@interface/*":["src/interface/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

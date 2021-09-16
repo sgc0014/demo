@@ -176,7 +176,7 @@ const Banner = (props: IProps) => {
               agreements with premium SMS/email alerts.
             </Typography>
             <div className={classes.btnWrap}>
-              {!isAuthenticated ? (
+              {isAuthenticated ? (
                 <Link href="/dashboard">
                   <Button variant="contained" className={classes.startBtn}>
                     Go to dashboard

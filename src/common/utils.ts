@@ -42,7 +42,7 @@ export function scrollToMainTop(smooth = true) {
   window.scrollTo({ top: newTop, behavior: smooth ? 'smooth' : 'auto' });
 }
 
-export const formatDateTime = (stringDate) => {
+export const formatDateTime = (stringDate:any) => {
   const mydate = new Date(parseFloat(stringDate));
   // let hours = mydate.getHours();
   // let minutes = mydate.getMinutes();
@@ -54,12 +54,12 @@ export const formatDateTime = (stringDate) => {
   return `${mydate.toUTCString().substring(0, 16)}`;
 };
 
-export const formatDateTimeMilliseconds = (stringDate) => {
+export const formatDateTimeMilliseconds = (stringDate:any) => {
   const mydate = new Date(stringDate * 1000);
   return `${mydate.toUTCString().substring(0, 16)}`;
 };
 
-export const formatDateTimeHourMilliseconds = (stringDate) => {
+export const formatDateTimeHourMilliseconds = (stringDate:any) => {
   const mydate = new Date(stringDate * 1000);
   return `${mydate.toUTCString().substring(0, 22)}`;
 };

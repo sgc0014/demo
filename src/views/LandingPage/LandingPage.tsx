@@ -6,7 +6,13 @@ import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import Link from "next/link";
 import { makeStyles } from "@material-ui/core/styles";
 import container from "./LandingPage.container";
+import { scrollToMainTop } from "@common/utils";
+import { IAuth } from "../../interface";
 
+export interface ILandingProps {
+  onSetDialogOpen?: (value: boolean) => void;
+  auth: IAuth;
+}
 const useStyles = makeStyles((theme) => ({
   footer: {
     color: "rgb(204 204 204)",
@@ -73,36 +79,31 @@ const useStyles = makeStyles((theme) => ({
 function Copyright() {
   const classes = useStyles();
   return (
-    <Typography
-      component="p"
-      variant="body2"
-      align="center"
-      className={classes.subText}
-      style={{ color: "#ffffff" }}
-    >
-      {"Copyright © "}
-      <Link
-        href="https://spacrun.com/"
-        // className={classes.subText}
-        // style={{ color: "#ffffff" }}
+    <Link href="https://spacrun.com/">
+      <Typography
+        component="p"
+        variant="body2"
+        align="center"
+        className={classes.subText}
+        style={{ color: "#ffffff" }}
       >
-        spacrun.com
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
+        {"Copyright © "}
+        spacrun.com {new Date().getFullYear()}
+        {"."}
+      </Typography>
+    </Link>
   );
 }
-const LandingPage: React.FC = ({
+const LandingPage: React.FC<ILandingProps> = ({
   onSetDialogOpen,
   auth: { isAuthenticated },
-}: any) => {
+}) => {
   const classes = useStyles();
 
   const isEarlyAccess = false;
 
   const handleClickOpen = () => {
-    onSetDialogOpen(true);
+    onSetDialogOpen && onSetDialogOpen(true);
   };
 
   return (
@@ -110,7 +111,7 @@ const LandingPage: React.FC = ({
       <IconButton
         aria-label="up-arrow"
         className={classes.scrollUpIcon}
-        onClick={() => console.log("")}
+        onClick={() => scrollToMainTop()}
       >
         <ExpandLessIcon />
       </IconButton>
@@ -142,22 +143,26 @@ const LandingPage: React.FC = ({
                     </Typography>
                   </Link>
                 </Typography>
-                <Typography
-                  variant="inherit"
-                  component="div"
-                  className={classes.text}
-                  style={{ marginBottom: "0px" }}
-                >
-                  <Typography className={classes.link}>
-                    Privacy Policy
+                <Link href="/privacy">
+                  <Typography
+                    variant="inherit"
+                    component="div"
+                    className={classes.text}
+                    style={{ marginBottom: "0px" }}
+                  >
+                    <Typography className={classes.link}>
+                      Privacy Policy
+                    </Typography>
                   </Typography>
-                </Typography>
+                </Link>
+                <Link href="/support">
                 <Typography
                   className={classes.text}
                   style={{ marginBottom: "2rem" }}
                 >
                   <Typography className={classes.link}>Support</Typography>
                 </Typography>
+                </Link>
               </div>
               <Typography
                 variant="inherit"

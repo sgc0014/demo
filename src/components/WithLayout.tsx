@@ -1,11 +1,6 @@
 import React from 'react';
 
-interface Props {
-  component: React.FC;
-  layout: React.FC;
-}
-
-const WithLayout: React.FC<Props> = (props) => {
+const WithLayout: React.FC<any> = (props) => {
   const { layout: Layout, component: Component, ...rest } = props;
 
   return (
