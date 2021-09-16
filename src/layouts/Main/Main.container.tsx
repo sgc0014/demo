@@ -6,7 +6,7 @@ import { RootState } from 'src/store';
 
 const mapStateToProps = (state:RootState) => ({
   authState: state.auth,
-  // userState: state.user,
+  userState: state.user,
   siteCoordinator: state.siteCoordinator,
 });
 

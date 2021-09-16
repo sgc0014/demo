@@ -1,48 +1,55 @@
-import { takeLatest, call, put, all, select } from 'redux-saga/effects';
-import axios from 'axios';
-import { loadUserStart } from '../auth/auth.actions';
-import { showSnackbarNotification } from '../notification/notification.actions';
-import * as UserType from './user.types';
+import { takeLatest, call, put, all, select } from "redux-saga/effects";
+import axios from "axios";
+import { loadUserStart } from "../auth/auth.actions";
+import { showSnackbarNotification } from "../notification/notification.actions";
+import * as UserType from "./user.types";
 import {
   profileSaveSuccess,
   profileSaveFail,
   fetchProfileSuccess,
   fetchProfileFail,
   cancelSubscriptionSuccess,
-  cancelSubscriptionFail
-} from './user.actions';
+  cancelSubscriptionFail,
+} from "./user.actions";
+import { RootState } from "..";
+import { IAuth,IUserState } from "src/interface/";
 
-const getAuthState = (state) => state.auth;
-const getUserState = (state) => state.user;
+const getAuthState = (state: RootState) => state.auth;
+const getUserState = (state: RootState) => state.user;
 
-export function* fetchProfileAsync({ payload: { userid } }) {
+
+export function* fetchProfileAsync({ payload: { userid } }: any) {
   try {
     const { data } = yield axios.get(
       `https://br6czx0kl6.execute-api.us-east-1.amazonaws.com/dev/profile/fetch/${userid}`
     );
-    console.log('profile: ', data);
+    console.log("profile: ", data);
     if (!data.message) {
       yield put(fetchProfileSuccess(data));
     } else {
-      yield put(showSnackbarNotification(
-        'error',
-        'User not found.'
-      ));
-      yield put(fetchProfileFail({message: 'User not found.'}));
+      yield put(showSnackbarNotification("error", "User not found."));
+      yield put(fetchProfileFail({ message: "User not found." }));
     }
     // yield put(fetchStripeDetailStart(data.subscriptionId));
-  } catch (e) {
+  } catch (e:any) {
     console.error(e);
     yield put(fetchProfileFail(e));
   }
 }
 
-export function* fetchStripeAsync({ payload: { subscriptionId } }) {
+interface IStripePayload {
+  payload: {
+    subscriptionId: string;
+  };
+}
+export function* fetchStripeAsync({
+  payload: { subscriptionId },
+}: IStripePayload) {
   try {
     const { data } = yield axios.get(
       `https://br6czx0kl6.execute-api.us-east-1.amazonaws.com/dev/stripe/fetch/${subscriptionId}`
     );
-    console.log('data: ', data);
+    console.log("data: ", data);
     // yield put(fetchStripeDetailSuccess(data));
   } catch (e) {
     console.error(e);
@@ -50,10 +57,13 @@ export function* fetchStripeAsync({ payload: { subscriptionId } }) {
   }
 }
 
-export function* profileSaveAsync({ payload: { value, history } }) {
+
+export function* profileSaveAsync({
+  payload: { value, history },
+}: any) {
   try {
     console.log(history);
-    const authState = yield select(getAuthState);
+    const authState: IAuth = yield select(getAuthState);
     const userid = authState.currentUser.uid;
     // console.log('userid: ', userid);
     const { data } = yield axios.post(
@@ -67,34 +77,43 @@ export function* profileSaveAsync({ payload: { value, history } }) {
     // console.log('data: ', data);
     if (data) {
       yield put(profileSaveSuccess(data));
-      yield put(showSnackbarNotification(
-        'success',
-        'Contact detail saved successfully.'
-      ));
+      yield put(
+        showSnackbarNotification(
+          "success",
+          "Contact detail saved successfully."
+        )
+      );
     } else {
-      yield put(showSnackbarNotification(
-        'error',
-        'Error on save contact detail. Please try again.'
-      ));
+      yield put(
+        showSnackbarNotification(
+          "error",
+          "Error on save contact detail. Please try again."
+        )
+      );
     }
   } catch (e) {
-    console.error('ERROR: ', e);
+    console.error("ERROR: ", e);
     yield put(profileSaveFail(e));
-    yield put(showSnackbarNotification(
-      'error',
-      'Error on save contact detail. Please try again.'
-    ));
+    yield put(
+      showSnackbarNotification(
+        "error",
+        "Error on save contact detail. Please try again."
+      )
+    );
   }
 }
 
-export function* sendStripePaymentEmailAsync({ payload: { paymentType, firstname, email } }) {
+
+export function* sendStripePaymentEmailAsync({
+  payload: { paymentType, firstname, email },
+}:any) {
   try {
-    if (paymentType === 'subscription') {
+    if (paymentType === "subscription") {
       yield axios.post(
         `https://br6czx0kl6.execute-api.us-east-1.amazonaws.com/dev/send/stripeSubscriptionEmail`,
         {
           firstname,
-          email
+          email,
         }
       );
     } else {
@@ -102,82 +121,92 @@ export function* sendStripePaymentEmailAsync({ payload: { paymentType, firstname
         `https://br6czx0kl6.execute-api.us-east-1.amazonaws.com/dev/send/stripePaymentEmail`,
         {
           firstname,
-          email
+          email,
         }
       );
     }
   } catch (e) {
-    console.error('ERROR: ', e);
+    console.error("ERROR: ", e);
   }
 }
 
-export function* setEmailSendStartAsync({ payload: { value } }) {
+
+export function* setEmailSendStartAsync({ payload: { value } }:any) {
   try {
-    const authState = yield select(getAuthState);
-    const userState = yield select(getUserState);
+    const authState: IAuth = yield select(getAuthState);
+    const userState: IUserState = yield select(getUserState);
     // FOR CASE PREMIUM NOTIFICATION PREFERENCES WHERE NO AUTH AND USER IS SET
     const userid = authState?.currentUser?.uid || userState?.profile?.id;
     const { data } = yield axios.post(
       `https://br6czx0kl6.execute-api.us-east-1.amazonaws.com/dev/profile/set/emailAlert/${userid}`,
       {
-        emailAlert: value
+        emailAlert: value,
       }
     );
-    console.log('data: ', data);
+    console.log("data: ", data);
   } catch (e) {
-    yield put(showSnackbarNotification(
-      'error',
-      'Error on set email alert. Please try again.'
-    ));
+    yield put(
+      showSnackbarNotification(
+        "error",
+        "Error on set email alert. Please try again."
+      )
+    );
   }
 }
 
-export function* setSMSSendStartAsync({ payload: { value } }) {
+
+export function* setSMSSendStartAsync({ payload: { value } }:any) {
   try {
-    const authState = yield select(getAuthState);
-    const userState = yield select(getUserState);
+    const authState: IAuth = yield select(getAuthState);
+    const userState: IUserState = yield select(getUserState);
     // FOR CASE PREMIUM NOTIFICATION PREFERENCES WHERE NO AUTH AND USER IS SET
     const userid = authState?.currentUser?.uid || userState?.profile?.id;
     const { data } = yield axios.post(
       `https://br6czx0kl6.execute-api.us-east-1.amazonaws.com/dev/profile/set/smsAlert/${userid}`,
       {
-        smsAlert: value
+        smsAlert: value,
       }
     );
-    console.log('data: ', data);
+    console.log("data: ", data);
   } catch (e) {
-    yield put(showSnackbarNotification(
-      'error',
-      'Error on set sms alert. Please try again.'
-    ));
+    yield put(
+      showSnackbarNotification(
+        "error",
+        "Error on set sms alert. Please try again."
+      )
+    );
   }
 }
 
 export function* cancelSubscriptionAsync() {
   try {
-    const authState = yield select(getAuthState);
-    const userState = yield select(getUserState);
-    const { profile: { firstname, email } } = userState;
+    const authState:IAuth = yield select(getAuthState);
+    const userState: IUserState = yield select(getUserState);
+    const {
+      profile: { firstname, email },
+    } = userState;
 
     const { data } = yield axios.post(
       `https://br6czx0kl6.execute-api.us-east-1.amazonaws.com/dev/subsctiption/cancel/${authState.currentUser?.uid}`,
       {
         subscriptionId: userState.profile?.subscriptionId,
         firstname,
-        email
+        email,
       }
     );
-    console.log('cancel data: ', data);
+    console.log("cancel data: ", data);
     yield put(loadUserStart());
     yield put(cancelSubscriptionSuccess(data));
-    yield put(showSnackbarNotification(
-      'success',
-      'Subscription cancelled successfully.'
-    ));
-  } catch (e) {
+    yield put(
+      showSnackbarNotification(
+        "success",
+        "Subscription cancelled successfully."
+      )
+    );
+  } catch (e:any) {
     console.error(e);
     yield put(cancelSubscriptionFail(e));
-    yield put(showSnackbarNotification('error', 'Subscription cancel failed.'));
+    yield put(showSnackbarNotification("error", "Subscription cancel failed."));
   }
 }
 
@@ -186,7 +215,10 @@ export function* profileSaveStartWatcher() {
 }
 
 export function* watchSendStripePaymentEmail() {
-  yield takeLatest(UserType.SEND_STRIPE_PAYMENT_EMAIL, sendStripePaymentEmailAsync);
+  yield takeLatest(
+    UserType.SEND_STRIPE_PAYMENT_EMAIL,
+    sendStripePaymentEmailAsync
+  );
 }
 
 export function* watchSetEmailSendStart() {
@@ -212,6 +244,6 @@ export function* userSagas() {
     call(watchSetEmailSendStart),
     call(watchSetSMSSendStart),
     call(fetchProfileWatcher),
-    call(watchCancelSubscribeStart)
+    call(watchCancelSubscribeStart),
   ]);
 }

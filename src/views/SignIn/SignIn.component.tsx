@@ -18,7 +18,7 @@ interface ISignInProps {
   auth: IAuth;
   onSigninStart: (values: IUserData, router: any) => void;
   onShowNotification: (status: string, message: string) => void;
-  router: any;
+ 
 }
 
 const useStyles = makeStyles((theme) => ({

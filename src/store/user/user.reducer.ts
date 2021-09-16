@@ -13,9 +13,9 @@ const INITIAL_STATE = {
   errors: {},
 };
 
-const userReducer = (state = INITIAL_STATE, action) => {
+const userReducer = (state = INITIAL_STATE, action:any) => {
   const { type, payload } = action;
-  let updatedState = {};
+  let updatedState:any = {};
   switch (type) {
     case UserType.SET_SMS_SEND:
       updatedState = {

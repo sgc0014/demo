@@ -1,14 +1,16 @@
-import * as NotificationType from './notification.types';
+import * as NotificationType from "./notification.types";
+import { Color } from "@material-ui/lab";
+import { INotificationState } from "src/interface/";
 
-const INITIAL_STATE = {
+const INITIAL_STATE: INotificationState = {
   snackbarNotification: {
     open: false,
-    status: '',
-    message: '',
-  }
+    status: undefined,
+    message: "",
+  },
 };
 
-const notificationReducer = (state = INITIAL_STATE, action) => {
+const notificationReducer = (state = INITIAL_STATE, action: any) => {
   const { type, payload } = action;
 
   let updatedState;

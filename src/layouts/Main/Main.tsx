@@ -3,15 +3,16 @@ import { makeStyles, useTheme, useMediaQuery } from "@material-ui/core";
 import clsx from "clsx";
 import { Topbar, Sidebar, Footer } from "./components";
 import container from "./Main.container";
+import { IAuth,IUserState } from "src/interface/";
 
-interface IProps {
-  authState: {
-    isAuthenticated: boolean;
-  };
+
+interface IMainLayoutProps {
+  authState: IAuth;
+  userState: IUserState;
   siteCoordinator: {
     sidebarOpen: boolean;
   };
-  onToggleSidebar: (value:boolean) => void;
+  onToggleSidebar: (value: boolean) => void;
   onSignoutStart: () => void;
   children: React.ReactNode;
 }
@@ -42,25 +43,28 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MainLayout = (props: IProps) => {
+const MainLayout = (props: IMainLayoutProps) => {
   const classes = useStyles();
   const theme = useTheme();
   const matchesSM = useMediaQuery(theme.breakpoints.down("md"));
   const matchesMD = useMediaQuery(theme.breakpoints.up("md"));
   const {
-    authState: { isAuthenticated },
+    authState: { isAuthenticated, currentUser },
     siteCoordinator: { sidebarOpen },
+    userState: {
+      profile: { firstname, lastname, isAdmin, avatarUrl },
+    },
     onToggleSidebar,
     onSignoutStart,
     children,
   } = props;
 
-  // if (window.wiser) {
-  //   console.log("success wiser notify main");
-  //   window.wiser.resetNotif(window.location.href);
-  // } else {
-  //   console.log("failed wiser notify main");
-  // }
+  if (window.wiser) {
+    console.log("success wiser notify main");
+    window.wiser.resetNotif(window.location.href);
+  } else {
+    console.log("failed wiser notify main");
+  }
 
   const handleSidebarOpen = () => {
     onToggleSidebar(true);

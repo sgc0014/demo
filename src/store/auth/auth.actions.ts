@@ -24,9 +24,9 @@ export const loadUserFinally = () => ({
   payload: { }
 });
 
-export const signinStart = (formData:any, history:any) => ({
+export const signinStart = (formData:any, router:any) => ({
   type: AuthType.SIGN_IN_START,
-  payload: { formData, history }
+  payload: { formData, router }
 });
 
 export const signinSuccess = (currentUser:any) => ({

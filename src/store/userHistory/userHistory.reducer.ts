@@ -1,3 +1,4 @@
+import { IUserHistoryState } from 'src/interface/';
 import _ from 'lodash';
 
 import * as UserHistoryType from './userHistory.types';
@@ -10,9 +11,9 @@ const INITIAL_STATE = {
   errors: {}
 };
 
-const userHistoryReducer = (state = INITIAL_STATE, action) => {
+const userHistoryReducer = (state = INITIAL_STATE, action:any) => {
   const { type, payload } = action;
-  let updatedState;
+  let updatedState:any;
   switch (type) {
     case UserHistoryType.FETCH_FOLLOW_START:
       return {
@@ -31,7 +32,7 @@ const userHistoryReducer = (state = INITIAL_STATE, action) => {
       updatedState.follows = _.uniq(
         [].concat(updatedState.follows, payload.list)
       ); // can be done using lodash no need to reinvent the wheel
-      payload.data.forEach((meta) => {
+      payload.data.forEach((meta:any) => {
         updatedState.results[meta.symbol] = meta;
       });
       return updatedState;
@@ -76,7 +77,7 @@ const userHistoryReducer = (state = INITIAL_STATE, action) => {
         loading: true
       };
       const idUFS = updatedState.follows
-        .map((item) => item)
+        .map((item:any) => item)
         .indexOf(payload.value);
       if (idUFS > -1) {
         updatedState.follows.splice(idUFS, 1);

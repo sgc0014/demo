@@ -9,7 +9,7 @@ const mapStateToProps = (state:RootState) => ({
 });
 
 const mapDispatchToProps = (dispatch:any) => ({
-  onSigninStart: (formData:any, history:any) => dispatch(signinStart(formData, history)),
+  onSigninStart: (formData:any, router:any) => dispatch(signinStart(formData, router)),
   onShowNotification: (status:any, message:any) => dispatch(showSnackbarNotification(status, message)),
 });
 

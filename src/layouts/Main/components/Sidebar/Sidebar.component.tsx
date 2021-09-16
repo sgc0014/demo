@@ -24,24 +24,15 @@ import {
 } from "@material-ui/icons";
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 import Drawer from "@material-ui/core/Drawer";
+import { IAuth, IUserState } from "src/interface/";
 
 interface IProps {
   open: boolean;
   onSidebarOpen: () => void;
   onSidebarClose: () => void;
-  onSignout:() => void;
-  authState: {
-    isAuthenticated: boolean;
-    // currentUser: { username: string };
-  };
-  // userState: {
-  //   profile: {
-  //     firstname: string;
-  //     lastname: string;
-  //     isAdmin: boolean;
-  //     avatarUrl: string;
-  //   };
-  // };
+  onSignout: () => void;
+  authState: IAuth;
+  userState: IUserState;
   clickHandler: () => void;
 }
 const useStyles = makeStyles((theme) => ({
@@ -120,19 +111,7 @@ const Sidebar = (props: IProps) => {
   const classes = useStyles();
   const theme = useTheme();
   const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
-  const {
-    open,
-    onSidebarOpen,
-    onSidebarClose,
-    authState: {
-      isAuthenticated,
-      // currentUser: { username },
-    },
-    // userState: {
-    //   profile: { firstname, lastname, isAdmin, avatarUrl },
-    // },
-    clickHandler,
-  } = props;
+  const { open, onSidebarOpen, onSidebarClose, clickHandler } = props;
 
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
   return (
@@ -168,7 +147,25 @@ const Sidebar = (props: IProps) => {
   );
 };
 
-const DrawerItems = (props: any) => {
+interface IDarwerAuthState {
+  isAuthenticated: boolean;
+  currentUser: { username: string };
+}
+interface IDarwerUserState {
+  profile: {
+    firstname: string;
+    lastname: string;
+    isAdmin: boolean;
+    avatarUrl: string;
+  };
+}
+interface IDarwerProps {
+  authState: IDarwerAuthState;
+  userState: IDarwerUserState;
+  clickHandler: () => void;
+  onSignout:() => void;
+}
+const DrawerItems = (props: IDarwerProps) => {
   const classes = useStyles();
   const {
     authState: {

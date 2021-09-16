@@ -13,12 +13,12 @@ const useStyles = makeStyles(() => ({
 const Minimal: React.FC<IProps> = (props) => {
   const classes = useStyles();
   const { children, noFooter } = props;
-  // if (window.wiser) {
-  //   console.log("success wiser notify minimal");
-  //   window.wiser.resetNotif(window.location.href);
-  // } else {
-  //   console.log("failed wiser notify minimal");
-  // }
+  if (window.wiser) {
+    console.log("success wiser notify minimal");
+    window.wiser.resetNotif(window.location.href);
+  } else {
+    console.log("failed wiser notify minimal");
+  }
 
   return (
     <div className={classes.root}>

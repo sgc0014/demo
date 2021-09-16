@@ -1,3 +1,4 @@
+import { ISpacrun } from 'src/interface/';
 import * as spacRunTypes from './spacrun.types';
 
 const INITIAL_STATE = {
@@ -21,9 +22,9 @@ const INITIAL_STATE = {
   errors: {}
 };
 
-const spacrunReducer = (state = INITIAL_STATE, action) => {
+const spacrunReducer = (state = INITIAL_STATE, action:any) => {
   const { type, payload } = action;
-  let updatedState = {};
+  let updatedState:ISpacrun;
   switch (type) {
     case spacRunTypes.FETCH_TOP_LIST_START:
       return {
@@ -72,7 +73,7 @@ const spacrunReducer = (state = INITIAL_STATE, action) => {
       };
       updatedState.spacLoading = false;
       updatedState.spacDate = payload.data.date;
-      payload.data.spac.forEach((meta) => {
+      payload.data.spac.forEach((meta:any) => {
         updatedState.spac[meta.symbol] = meta;
       });
       return updatedState;

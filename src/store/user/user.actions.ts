@@ -25,12 +25,12 @@ export const profileSaveFail = (err:any) => ({
   payload: { err }
 });
 
-export const sendStripePaymentEmail = (paymentType:any, firstname:any, email:any) => ({
+export const sendStripePaymentEmail = (paymentType:any, firstname:string, email:string) => ({
   type: UserType.SEND_STRIPE_PAYMENT_EMAIL,
   payload: { paymentType, firstname, email }
 });
 
-export const subscribeUser = (sessionId:any) => ({
+export const subscribeUser = (sessionId:string) => ({
   type: UserType.SUBSCRIBE_USER_START,
   payload: { sessionId }
 });
@@ -60,7 +60,7 @@ export const cancelSubscriptionFail = (error:any) => ({
   payload: { error }
 });
 
-export const fetchProfileStart = (userid:any) => ({
+export const fetchProfileStart = (userid:string) => ({
   type: UserType.FETCH_PROFILE_START,
   payload: { userid }
 });
