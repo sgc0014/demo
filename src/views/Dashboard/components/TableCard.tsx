@@ -1,6 +1,6 @@
-import React from 'react';
-import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
+import React from "react";
+import clsx from "clsx";
+import { makeStyles } from "@material-ui/core/styles";
 import {
   Container,
   Card,
@@ -12,83 +12,83 @@ import {
   TableContainer,
   TableHead,
   TablePagination,
-  TableRow
-} from '@material-ui/core';
-import { formatDateTime, decimal2digit, addComma } from 'src/common/utils';
-import { TablePaginationActions } from 'src/pages/components';
+  TableRow,
+} from "@material-ui/core";
+import { formatDateTime, decimal2digit, addComma } from "src/common/utils";
+import TablePaginationActions from "@components/TablePaginationActions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '100%',
-    marginTop: '3em'
+    width: "100%",
+    marginTop: "3em",
   },
   header: {
-    backgroundColor: 'white',
-    color: theme.palette.primary.dark
+    backgroundColor: "white",
+    color: theme.palette.primary.dark,
   },
   title: {
-    fontWeight: 500
+    fontWeight: 500,
   },
   subHeader: {
-    marginLeft: '20px',
-    color: theme.palette.primary.dark
+    marginLeft: "20px",
+    color: theme.palette.primary.dark,
   },
   tableHeader: {
-    color: 'rgb(255 255 255)',
-    backgroundColor: 'rgb(1 60 108);'
+    color: "rgb(255 255 255)",
+    backgroundColor: "rgb(1 60 108);",
     // backgroundColor: '#cccccc87',
   },
   narrowCell: {
-    [theme.breakpoints.down('xs')]: {
-      width: '20%'
-    }
+    [theme.breakpoints.down("xs")]: {
+      width: "20%",
+    },
   },
   numberAlign: {
-    textAlign: 'left'
+    textAlign: "left",
   },
   gainers: {
-    color: 'green'
+    color: "green",
   },
   losers: {
-    color: 'red'
+    color: "red",
   },
   rowStyle: {
-    boxShadow: 'none'
+    boxShadow: "none",
   },
   caption: {
-    display: 'none'
-  }
+    display: "none",
+  },
 }));
 
-const GainerLoser = (props) => {
+const GainerLoser = (props: any) => {
   const classes = useStyles();
   const { changeValue, suffixSymbol } = props;
   return (
     <>
       {parseFloat(changeValue) >= 0 ? (
         <span className={classes.gainers}>
-          {changeValue ? `${changeValue}${suffixSymbol}` : ''}
+          {changeValue ? `${changeValue}${suffixSymbol}` : ""}
         </span>
       ) : (
         <span className={classes.losers}>
-          {changeValue ? `${changeValue}${suffixSymbol}` : ''}
+          {changeValue ? `${changeValue}${suffixSymbol}` : ""}
         </span>
       )}
     </>
   );
 };
 
-const TableCard = (props) => {
+const TableCard = (props: any) => {
   const classes = useStyles();
   const { title, headCells, rows = [] } = props;
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(60);
 
-  const handleChangePage = (event, newPage) => {
+  const handleChangePage = (event: any, newPage: number) => {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (event) => {
+  const handleChangeRowsPerPage = (event: any) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
@@ -96,31 +96,31 @@ const TableCard = (props) => {
   return (
     <div className={classes.root}>
       <Container style={{ maxWidth: 1400 }}>
-        <Card style={{ marginTop: '2%' }}>
+        <Card style={{ marginTop: "2%" }}>
           <CardHeader
             title={title}
             classes={{
               root: classes.header,
               title: classes.title,
-              subheader: classes.subHeader
+              subheader: classes.subHeader,
             }}
             titleTypographyProps={{
-              display: 'inline'
+              display: "inline",
             }}
             subheaderTypographyProps={{
-              display: 'inline'
+              display: "inline",
             }}
             className={classes.tableHeader}
           />
-          <TableContainer component={Paper} style={{ boxShadow: 'none' }}>
-            <Table className={classes.table} aria-label="customized table">
+          <TableContainer component={Paper} style={{ boxShadow: "none" }}>
+            <Table aria-label="customized table">
               <TableHead>
                 <TableRow>
-                  {headCells.map((headCell) => (
+                  {headCells.map((headCell: any) => (
                     <TableCell
                       key={`header-${headCell.id}`}
                       // align={headCell.numeric ? 'right' : 'left'}
-                      align={'left'}
+                      align={"left"}
                     >
                       {headCell.label}
                     </TableCell>
@@ -131,7 +131,7 @@ const TableCard = (props) => {
                 {rows &&
                   rows
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((row, index) => {
+                    .map((row: any, index: any) => {
                       const prevData = rows[page * rowsPerPage + index + 1];
                       let percentChange = null;
                       if (prevData) {
@@ -145,7 +145,7 @@ const TableCard = (props) => {
                         // eslint-disable-next-line react/no-array-index-key
                         <TableRow hover key={`${row.symbol}-row-${index}`}>
                           <TableCell
-                            className={clsx('numberAlign', classes.numberAlign)}
+                            className={clsx("numberAlign", classes.numberAlign)}
                             classes={{ body: classes.narrowCell }}
                             component="th"
                             scope="row"
@@ -153,32 +153,32 @@ const TableCard = (props) => {
                             {formatDateTime(row.date)}
                           </TableCell>
                           <TableCell
-                            className={clsx('numberAlign', classes.numberAlign)}
+                            className={clsx("numberAlign", classes.numberAlign)}
                           >
                             ${decimal2digit(row.open)}
                           </TableCell>
                           <TableCell
-                            className={clsx('numberAlign', classes.numberAlign)}
+                            className={clsx("numberAlign", classes.numberAlign)}
                           >
                             ${decimal2digit(row.high)}
                           </TableCell>
                           <TableCell
-                            className={clsx('numberAlign', classes.numberAlign)}
+                            className={clsx("numberAlign", classes.numberAlign)}
                           >
                             ${decimal2digit(row.low)}
                           </TableCell>
                           <TableCell
-                            className={clsx('numberAlign', classes.numberAlign)}
+                            className={clsx("numberAlign", classes.numberAlign)}
                           >
                             ${decimal2digit(row.close)}
                           </TableCell>
                           <TableCell
-                            className={clsx('numberAlign', classes.numberAlign)}
+                            className={clsx("numberAlign", classes.numberAlign)}
                           >
                             ${decimal2digit(row.close)}
                           </TableCell>
                           <TableCell
-                            className={clsx('numberAlign', classes.numberAlign)}
+                            className={clsx("numberAlign", classes.numberAlign)}
                           >
                             <GainerLoser
                               changeValue={percentChange}
@@ -186,7 +186,7 @@ const TableCard = (props) => {
                             />
                           </TableCell>
                           <TableCell
-                            className={clsx('numberAlign', classes.numberAlign)}
+                            className={clsx("numberAlign", classes.numberAlign)}
                           >
                             {addComma(row.volume)}
                           </TableCell>
@@ -205,10 +205,10 @@ const TableCard = (props) => {
           page={page}
           classes={{
             caption: classes.caption,
-            selectRoot: classes.caption
+            selectRoot: classes.caption,
           }}
-          onChangePage={handleChangePage}
-          onChangeRowsPerPage={handleChangeRowsPerPage}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
           ActionsComponent={TablePaginationActions}
         />
       </Container>

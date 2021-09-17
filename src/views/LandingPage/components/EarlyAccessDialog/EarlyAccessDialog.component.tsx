@@ -14,6 +14,8 @@ import { Formik, Field, Form } from "formik";
 import { TextField } from "formik-material-ui";
 import * as Yup from "yup";
 import { makeStyles } from "@material-ui/core/styles";
+import { IEarlyAccessState } from "src/interface/";
+import container from "./EarlyAccessDialog.container";
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -47,8 +49,17 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
 }));
-
-const EarlyAccessDialog = (props) => {
+interface IEarlyAccessProps {
+  earlyAccessState: IEarlyAccessState;
+  onSetDialogOpen: (value: boolean) => void;
+  onSetMessageOpen: (
+    value: boolean,
+    title: string | null,
+    message: string | null
+  ) => void;
+  onEarlyAccess: (email: string) => void;
+}
+const EarlyAccessDialog = (props: IEarlyAccessProps) => {
   const classes = useStyles();
   const {
     earlyAccessState: {
@@ -68,7 +79,7 @@ const EarlyAccessDialog = (props) => {
   const handleMessageClose = () => {
     onSetMessageOpen(false, null, null);
   };
-  const earlyAccessHandler = async (values) => {
+  const earlyAccessHandler = async (values: { email: string }) => {
     if (values.email) {
       onEarlyAccess(values.email);
     }
@@ -130,9 +141,7 @@ const EarlyAccessDialog = (props) => {
               <DialogContent style={{ padding: "8px 36px" }}>
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
-                    <Typography component="span" className={classes.textLabel}>
-                      Email Address
-                    </Typography>
+                    <Typography component="span">Email Address</Typography>
                   </Grid>
                   <Grid item xs={12}>
                     <Field
@@ -142,7 +151,6 @@ const EarlyAccessDialog = (props) => {
                       variant="outlined"
                       fullWidth
                       label="Email Address"
-                      className={classes.textField}
                     />
                   </Grid>
                 </Grid>
@@ -206,4 +214,4 @@ const EarlyAccessDialog = (props) => {
   );
 };
 
-export default EarlyAccessDialog;
+export default container(EarlyAccessDialog);

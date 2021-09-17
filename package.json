@@ -17,6 +17,8 @@
     "aws-amplify": "^4.2.9",
     "formik": "^2.2.9",
     "formik-material-ui": "^4.0.0-alpha.1",
+    "highcharts": "^9.2.2",
+    "highcharts-react-official": "^3.0.0",
     "next": "11.1.2",
     "next-redux-wrapper": "^7.0.5",
     "react": "17.0.2",

@@ -13,7 +13,7 @@ const useStyles = makeStyles(() => ({
 const Minimal: React.FC<IProps> = (props) => {
   const classes = useStyles();
   const { children, noFooter } = props;
-  if (window.wiser) {
+  if (typeof window !== "undefined" && window.wiser) {
     console.log("success wiser notify minimal");
     window.wiser.resetNotif(window.location.href);
   } else {

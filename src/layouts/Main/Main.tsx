@@ -3,8 +3,7 @@ import { makeStyles, useTheme, useMediaQuery } from "@material-ui/core";
 import clsx from "clsx";
 import { Topbar, Sidebar, Footer } from "./components";
 import container from "./Main.container";
-import { IAuth,IUserState } from "src/interface/";
-
+import { IAuth, IUserState } from "src/interface/";
 
 interface IMainLayoutProps {
   authState: IAuth;
@@ -59,7 +58,7 @@ const MainLayout = (props: IMainLayoutProps) => {
     children,
   } = props;
 
-  if (window.wiser) {
+  if (typeof window !== "undefined" && window.wiser) {
     console.log("success wiser notify main");
     window.wiser.resetNotif(window.location.href);
   } else {

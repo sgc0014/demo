@@ -69,11 +69,7 @@ export function* fetchSpacListAsync() {
   }
 }
 
-interface IFetchSpacHistoricalPayload {
-  payload: {
-    symbol: string;
-  };
-}
+
 export function* fetchSpacHistoricalAsync({
   payload: { symbol },
 }: ReturnType<typeof fetchHistoricalStart>) {

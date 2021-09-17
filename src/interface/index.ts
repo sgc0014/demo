@@ -3,9 +3,9 @@ import { Color } from "@material-ui/lab";
 export interface IAuth {
   isAuthenticated: boolean;
   currentUser: {
-    username:string;
-    uid:string;
-    email:string;
+    username: string;
+    uid: string;
+    email: string;
   };
   newUser?: any;
   error?: any;
@@ -43,11 +43,11 @@ export interface IUserData {
 export interface IUserState {
   loading: boolean;
   subscriptionLoading: boolean;
-  profile:any;
+  profile: any;
   isProfileUpdating: boolean;
   errors?: any;
 }
-export interface IUserHistoryState{
+export interface IUserHistoryState {
   loading: boolean;
   updateLoading: boolean;
   follows: any[];
@@ -55,10 +55,24 @@ export interface IUserHistoryState{
   errors?: any;
 }
 
-export interface INotificationState{
+export interface INotificationState {
   snackbarNotification: {
-    open: boolean,
-    status: Color | undefined,
-    message: string,
-  }
+    open: boolean;
+    status: Color | undefined;
+    message: string;
+  };
+}
+
+export interface IEarlyAccessState {
+  isLoading: boolean;
+  dialogOpen: boolean;
+  messageOpen: boolean;
+  messageTitle: string | null;
+  messageContent: string | null;
+}
+
+export interface INewsState {
+  isFetching: boolean;
+  results: any[];
+  errors: any;
 }

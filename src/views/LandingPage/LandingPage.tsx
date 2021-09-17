@@ -8,6 +8,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import container from "./LandingPage.container";
 import { scrollToMainTop } from "@common/utils";
 import { IAuth } from "../../interface";
+import EarlyAccessDialog from "./components/EarlyAccessDialog";
 
 export interface ILandingProps {
   onSetDialogOpen?: (value: boolean) => void;
@@ -201,6 +202,7 @@ const LandingPage: React.FC<ILandingProps> = ({
           </Container>
         </div>
       </footer>
+      <EarlyAccessDialog />
     </>
   );
 };
