@@ -76,3 +76,55 @@ export interface INewsState {
   results: any[];
   errors: any;
 }
+
+export interface IRssState {
+  isFetching: boolean;
+  isFetchingHistory: boolean;
+  url: string;
+  results: any[];
+  history: any[];
+}
+
+export interface IRedditPost {
+  query?: string;
+  selftext?: string;
+  createdAt?: string;
+  permalink?: string;
+  postId?: string;
+  subredditName?: string;
+  url?: string;
+  created_utc?: number;
+  subredditNSFW?: boolean;
+  sk?: string;
+  subredditId?: string;
+  pk?: string;
+  id?: string;
+  type?: string;
+  title?: string;
+  domain?: string;
+}
+export interface IRedditComment {
+  query?: string;
+  createdAt?: string;
+  permalink?: string;
+  postId?: string;
+  subredditName?: string;
+  created_utc?: number;
+  subredditNSFW?: boolean;
+  sentiment?: number;
+  sk?: string;
+  subredditId?: string;
+  pk?: string;
+  id?: string;
+  type?: string;
+  body?: string;
+}
+export interface IRedditState {
+  isFetchingTop: boolean;
+  isFetching: boolean;
+  query: string;
+  errors: any;
+  posts: IRedditPost[] | [];
+  comments: IRedditComment[] | [];
+  topList: string[];
+}

@@ -3,12 +3,13 @@ import axios, { AxiosResponse } from "axios";
 import * as newsTypes from "./news.types";
 import * as newsActions from "./news.actions";
 import { RootState } from "..";
-import { IAuth,IUserHistoryState } from "src/interface/";
+import { IAuth, IUserHistoryState } from "src/interface/";
 
 const getAuthState = (state: RootState) => state.auth;
 const getUserHistoryState = (state: RootState) => state.userHistory;
 
 export function* fetchNewsAsync() {
+ 
   const authState: IAuth = yield select(getAuthState);
   const userid: string = authState.currentUser.uid;
   const userHistoryState: IUserHistoryState = yield select(getUserHistoryState);
@@ -21,6 +22,7 @@ export function* fetchNewsAsync() {
         `https://ydak4yeh7k.execute-api.us-east-1.amazonaws.com/dev/cision/releases/${userid}`
       );
     } else {
+      console.log("else");
       response = yield axios.get(
         // 'https://br6czx0kl6.execute-api.us-east-1.amazonaws.com/dev/news'
         "https://ydak4yeh7k.execute-api.us-east-1.amazonaws.com/dev/cision/releases"
@@ -36,7 +38,7 @@ export function* fetchNewsAsync() {
   }
 }
 
-export function* readMoreRedirect({ payload: { url } }:any) {
+export function* readMoreRedirect({ payload: { url } }: any) {
   try {
     if (url.toString().includes("contentapi.cision.com")) {
       const { data } = yield axios.post(
