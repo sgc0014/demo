@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface IGainerLoserProps {
+export interface IGainerLoserProps {
   changeValue: string;
   preSymbol?: string;
   postSymbol: string;

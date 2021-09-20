@@ -32,7 +32,12 @@ export interface ISpacrun {
   volumeSpike?: any[];
   errors?: any;
 }
-
+export interface IAdminState {
+  loading: boolean;
+  errors: any;
+  users: any;
+  counts: any;
+}
 export interface IUserData {
   email: string;
   name?: string;

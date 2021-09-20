@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+import adminReducer from "./admin/admin.reducer";
 import authReducer from "./auth/auth.reducer";
 import earlyAccessReducer from "./earlyAccess/earlyAccess.reducer";
 import newsReducer from "./news/news.reducer";
@@ -22,7 +23,8 @@ const rootReducer = combineReducers({
   news: newsReducer,
   rss: rssReducer,
   reddit:redditReducer,
-  search:searchReducer
+  search:searchReducer,
+  admin:adminReducer
 });
 
 export default rootReducer;

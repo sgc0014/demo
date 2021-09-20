@@ -60,7 +60,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const GainerLoser = (props: any) => {
+interface IGainerLoserProps {
+  changeValue: string;
+  suffixSymbol: string;
+}
+const GainerLoser = (props: IGainerLoserProps) => {
   const classes = useStyles();
   const { changeValue, suffixSymbol } = props;
   return (
@@ -78,7 +82,12 @@ const GainerLoser = (props: any) => {
   );
 };
 
-const TableCard = (props: any) => {
+interface ITableCardProps {
+  title: string;
+  headCells: any;
+  rows: any[];
+}
+const TableCard = (props: ITableCardProps) => {
   const classes = useStyles();
   const { title, headCells, rows = [] } = props;
   const [page, setPage] = React.useState(0);
@@ -133,7 +142,7 @@ const TableCard = (props: any) => {
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row: any, index: any) => {
                       const prevData = rows[page * rowsPerPage + index + 1];
-                      let percentChange = null;
+                      let percentChange = "0";
                       if (prevData) {
                         const { close } = row;
                         const prevClose = prevData.close;

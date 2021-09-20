@@ -7,6 +7,7 @@ import { redditSagas } from "./reddit/reddit.sagas";
 import { searchSagas } from "./search/search.sagas";
 import { userHistorySagas } from "./userHistory/userHistory.sagas";
 import { userSagas } from "./user/user.sagas";
+import { adminSagas } from "./admin/admin.sagas";
 
 export default function* rootSaga() {
   yield all([
@@ -17,6 +18,7 @@ export default function* rootSaga() {
     call(redditSagas),
     call(searchSagas),
     call(userHistorySagas),
-    call(userSagas)
+    call(userSagas),
+    call(adminSagas),
   ]);
 }
