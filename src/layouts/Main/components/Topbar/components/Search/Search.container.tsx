@@ -6,14 +6,14 @@ import { connect } from "react-redux";
 import { RootState } from "../../../../../../store";
 
 const mapStateToProps = (state: RootState) => ({
-  // searchState: state.search,
+  searchState: state.search,
   spacrunState: state.spacrun,
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
-  // onSearchStart: (value: any, history: any) =>
-  //   dispatch(searchStart(value, history)),
-  onShowNotification: (status: any, message: any) =>
+  onSearchStart: (value: string, history: any) =>
+    dispatch(searchStart(value, history)),
+  onShowNotification: (status: string, message: string) =>
     dispatch(showSnackbarNotification(status, message)),
 });
 

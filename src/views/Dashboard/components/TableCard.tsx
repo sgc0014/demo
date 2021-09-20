@@ -146,7 +146,9 @@ const TableCard = (props: ITableCardProps) => {
                       if (prevData) {
                         const { close } = row;
                         const prevClose = prevData.close;
-                        const parse = ((close - prevClose) / prevClose) * 100;
+                        const parse = String(
+                          ((close - prevClose) / prevClose) * 100
+                        );
                         percentChange = decimal2digit(parse);
                         // NaN value onn parse removed after GainerLoser
                       }

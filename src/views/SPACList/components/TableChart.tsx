@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { makeStyles } from "@material-ui/core";
 import Highcharts from "highcharts/highstock";
 import HighchartsReact from "highcharts-react-official";
-
+import { returnHighChartDate, getHighChartColor } from "./utils";
 const useStyles = makeStyles(() => ({
   root: {
     width: "100%",
@@ -51,11 +51,8 @@ const TableChart = (props: ITableChartProps) => {
       shadow: false,
       useHTML: true,
       padding: 0,
-      formatter():any {
-        // eslint-disable-next-line react/no-this-in-sfc
-        return `${Highcharts.dateFormat("%e %b %Y", new Date(this.x))}<br/>${
-          "$" + parseFloat(this.point.y).toFixed(2)
-        }`;
+      formatter() {
+       return returnHighChartDate(this);
       },
       positioner() {
         return { x: 0, y: 0 };
@@ -71,12 +68,10 @@ const TableChart = (props: ITableChartProps) => {
             y2: 1,
           },
           stops: [
-            [0,Highcharts.getOptions().colors[0]],
+            [0, getHighChartColor()],
             [
               1,
-              Highcharts.color(Highcharts.getOptions().colors[0])
-                .setOpacity(0)
-                .get("rgba"),
+              Highcharts.color(getHighChartColor()).setOpacity(0).get("rgba"),
             ],
           ],
         },

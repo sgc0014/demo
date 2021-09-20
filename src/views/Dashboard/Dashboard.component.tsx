@@ -65,9 +65,9 @@ interface IDashboardProps {
   onFollow: (value: string) => void;
   onUnFollow: (value: string) => void;
 }
-interface IPriceData{
-  price:string;
-  percentage:string;
+interface IPriceData {
+  price: string;
+  percentage: string;
 }
 interface IPriceState {
   isFetching?: boolean;
@@ -76,13 +76,14 @@ interface IPriceState {
   lastPrice?: null | string;
   latestPriceChange?: null | string;
   latestPriceChangePer?: null | string;
-  latestVolume?: null | string;
+  latestVolume?: null | number;
   lastVolume?: null | string;
   symbol?: null | string;
   longName?: null | string;
 }
 const Dashboard = (props: IDashboardProps) => {
   const classes = useStyles();
+
   const {
     authState: { isAuthenticated },
     userHistoryState: { follows },
@@ -103,11 +104,10 @@ const Dashboard = (props: IDashboardProps) => {
   let symbol =
     typeof document !== "undefined" &&
     document.location.pathname.split("/").slice(2, 3).toString();
+  console.log(symbol);
   if (!symbol) {
-  
     // eslint-disable-next-line prefer-destructuring
     symbol = follows[0] || "PSTH";
-   
   }
   let historicalData: any = { name: "", candleData: null };
   if (symbol && spacHistory[symbol]) {
@@ -118,7 +118,7 @@ const Dashboard = (props: IDashboardProps) => {
       try {
         setPrice({ isFetching: true });
         const item = symbol && spac[symbol];
-       
+
         if (item) {
           setPrice({
             isFetching: false,
@@ -168,10 +168,12 @@ const Dashboard = (props: IDashboardProps) => {
       price: parseFloat(price.latestPriceChangePer).toFixed(2),
       percentage: "N/A",
     };
-    volumeData = {
-      price: addComma(price.latestVolume),
-      percentage: "N/A",
-    };
+    if (price.latestVolume) {
+      volumeData = {
+        price: addComma(price.latestVolume),
+        percentage: "N/A",
+      };
+    }
   }
 
   const headCells = [
@@ -214,7 +216,6 @@ const Dashboard = (props: IDashboardProps) => {
       <Container style={{ maxWidth: 1400 }}>
         <Grid style={{ margin: "2% 0" }}>
           <Typography variant="h4" className={classes.Headlink} gutterBottom>
-          
             {price.symbol &&
               price.longName &&
               `${price.symbol} - ${price.longName}`}

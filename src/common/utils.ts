@@ -1,4 +1,4 @@
-export function calculatePositionFromElement(element) {
+export function calculatePositionFromElement(element:any) {
   // Calc position data
   let htmlElement = element;
   let top = 0;
@@ -64,7 +64,7 @@ export const formatDateTimeHourMilliseconds = (stringDate:any) => {
   return `${mydate.toUTCString().substring(0, 22)}`;
 };
 
-export const formatDate = (date) => {
+export const formatDate = (date: string | number | Date) => {
   let result = new Date(date);
   if (result.toString() === 'Invalid Date') {
     result = new Date();
@@ -72,12 +72,12 @@ export const formatDate = (date) => {
   return result.toUTCString().substring(0, 22);
 };
 
-export const dateTimestamp = (date) => {
+export const dateTimestamp = (date: string ) => {
   const timestamp = Date.parse(date);
   return Math.round(timestamp);
 };
 
-export const cisionDateFormat = (datestr) => {
+export const cisionDateFormat = (datestr:string) => {
   let result;
   if (datestr) {
     const y = datestr.substring(0, 4);
@@ -92,14 +92,15 @@ export const cisionDateFormat = (datestr) => {
       result = new Date();
     }
   }
+  if(result){
   return result.toUTCString().substring(0, 22);
-};
+}};
 
-export const decimal2digit = (value) => {
+export const decimal2digit = (value:string) => {
   return parseFloat(value).toFixed(2);
 };
 
-export const arrayUnique = (array) => {
+export const arrayUnique = (array:any[]) => {
   const a = array.concat();
   for (let i = 0; i < a.length; ++i) {
     for (let j = i + 1; j < a.length; ++j) {
@@ -111,7 +112,7 @@ export const arrayUnique = (array) => {
   return a;
 };
 
-export const addComma = (number) => {
+export const addComma = (number:number) => {
   const parts = number.toString().split(".");
   parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   return parts.join(".");

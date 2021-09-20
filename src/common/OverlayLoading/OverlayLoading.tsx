@@ -2,14 +2,14 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Backdrop, CircularProgress } from '@material-ui/core';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme:any) => ({
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
     color: '#fff',
   },
 }));
 
-export default function SimpleBackdrop(props) {
+export default function SimpleBackdrop(props:{open:boolean}) {
   const classes = useStyles();
   const { open } = props;
 

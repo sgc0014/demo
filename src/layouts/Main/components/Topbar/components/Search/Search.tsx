@@ -2,7 +2,7 @@ import React from "react";
 import { useRouter } from "next/router";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import spacList from "../../../../../../files/shellcompanies.json";
+import spacList from "src/files/shellcompanies.json";
 import container from "./Search.container";
 
 const HeaderTitle = (props: any) => {
@@ -13,7 +13,7 @@ const HeaderTitle = (props: any) => {
 
   // const spacList = Object.values(spac);
   const onInputChangeHandler = (event: any) => {
-
+  
     if (event.target.value && typeof event.target.value === "string") {
       // eslint-disable-next-line max-len
       const index = spacList.findIndex((x: any) =>
@@ -23,7 +23,8 @@ const HeaderTitle = (props: any) => {
     }
   };
 
-  const onChangeHandler = (val: any) => {
+  const onChangeHandler = (event:any,val: any) => {
+   
     if (val) {
       const index = spacList.findIndex((x: any) => x.symbol === val.symbol);
       setValue(index);
@@ -33,7 +34,7 @@ const HeaderTitle = (props: any) => {
   const searchHandler = () => {
     // console.log('search handler: ', spacList[value].Symbol);
     // onSearchStart(spacList[value].Symbol, history);
-    console.log(value);
+  
     if (value !== null && spacList[value]) {
       const search = spacList[value].symbol;
       if (search) {
