@@ -40,6 +40,7 @@ export interface IUserData {
   lastname: string;
   password: string;
 }
+
 export interface IUserState {
   loading: boolean;
   subscriptionLoading: boolean;

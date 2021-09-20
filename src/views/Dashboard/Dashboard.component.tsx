@@ -214,7 +214,7 @@ const Dashboard = (props: IDashboardProps) => {
       <Container style={{ maxWidth: 1400 }}>
         <Grid style={{ margin: "2% 0" }}>
           <Typography variant="h4" className={classes.Headlink} gutterBottom>
-            {console.log(price)}
+          
             {price.symbol &&
               price.longName &&
               `${price.symbol} - ${price.longName}`}

@@ -111,7 +111,15 @@ const Sidebar = (props: IProps) => {
   const classes = useStyles();
   const theme = useTheme();
   const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
-  const { open, onSidebarOpen, onSidebarClose, clickHandler } = props;
+  const {
+    open,
+    onSidebarOpen,
+    onSidebarClose,
+    clickHandler,
+    userState,
+    authState,
+    onSignout,
+  } = props;
 
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
   return (
@@ -127,7 +135,12 @@ const Sidebar = (props: IProps) => {
             paper: classes.drawerPaper,
           }}
         >
-          <DrawerItems {...props} />
+          <DrawerItems
+            userState={userState}
+            authState={authState}
+            clickHandler={clickHandler}
+            onSignout={onSignout}
+          />
         </SwipeableDrawer>
       </Hidden>
       <Hidden xsDown>
@@ -140,30 +153,23 @@ const Sidebar = (props: IProps) => {
             paper: classes.drawerPaper,
           }}
         >
-          <DrawerItems {...props} />
+          <DrawerItems
+            userState={userState}
+            authState={authState}
+            clickHandler={clickHandler}
+            onSignout={onSignout}
+          />
         </Drawer>
       </Hidden>
     </>
   );
 };
 
-interface IDarwerAuthState {
-  isAuthenticated: boolean;
-  currentUser: { username: string };
-}
-interface IDarwerUserState {
-  profile: {
-    firstname: string;
-    lastname: string;
-    isAdmin: boolean;
-    avatarUrl: string;
-  };
-}
 interface IDarwerProps {
-  authState: IDarwerAuthState;
-  userState: IDarwerUserState;
+  authState: IAuth;
+  userState: IUserState;
   clickHandler: () => void;
-  onSignout:() => void;
+  onSignout: () => void;
 }
 const DrawerItems = (props: IDarwerProps) => {
   const classes = useStyles();
@@ -172,13 +178,14 @@ const DrawerItems = (props: IDarwerProps) => {
       isAuthenticated,
       currentUser: { username },
     },
-    userState: {
-      profile: { firstname, lastname, isAdmin, avatarUrl },
-    },
+    userState,
     clickHandler,
   } = props;
+  const {
+    profile: { firstname, lastname, isAdmin, avatarUrl },
+  } = userState;
   const name = `${firstname || ""} ${lastname || ""}`;
-
+  console.log(userState);
   return (
     <>
       <List className={classes.listContainer}>
@@ -251,7 +258,7 @@ const DrawerItems = (props: IDarwerProps) => {
         />
         <SidebarItem
           name="Sign Out"
-          to="/#"
+          to="/"
           icon={<ExitToAppIcon />}
           onClick={() => {
             props.onSignout();

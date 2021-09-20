@@ -5,6 +5,7 @@ import newsReducer from "./news/news.reducer";
 import notificationReducer from "./notification/notification.reducer";
 import redditReducer from "./reddit/reddit.reducer";
 import rssReducer from "./rss/rss.reducer";
+import searchReducer from "./search/search.reducer";
 import siteCoordinatorReducer from "./siteCoordinator/siteCoordinator.reducer";
 import spacrunReducer from "./spacrun/spacrun.reducers";
 import userReducer from "./user/user.reducer";
@@ -20,7 +21,8 @@ const rootReducer = combineReducers({
   earlyAccess: earlyAccessReducer,
   news: newsReducer,
   rss: rssReducer,
-  reddit:redditReducer
+  reddit:redditReducer,
+  search:searchReducer
 });
 
 export default rootReducer;

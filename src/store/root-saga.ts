@@ -4,6 +4,9 @@ import { spacrunSagas } from "./spacrun/spacrun.sagas";
 import { newsSagas } from "./news/news.sagas";
 import { rssSagas } from "./rss/rss.sagas";
 import { redditSagas } from "./reddit/reddit.sagas";
+import { searchSagas } from "./search/search.sagas";
+import { userHistorySagas } from "./userHistory/userHistory.sagas";
+import { userSagas } from "./user/user.sagas";
 
 export default function* rootSaga() {
   yield all([
@@ -12,5 +15,8 @@ export default function* rootSaga() {
     call(newsSagas),
     call(rssSagas),
     call(redditSagas),
+    call(searchSagas),
+    call(userHistorySagas),
+    call(userSagas)
   ]);
 }

@@ -21,7 +21,7 @@
       "@theme/*": ["src/theme/*"],
       "@common/*": ["src/common/*"],
       "@store/*":["src/store/*"],
-      "@interface/*":["src/interface/*"]
+     
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

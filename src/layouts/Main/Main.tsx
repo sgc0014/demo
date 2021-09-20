@@ -48,16 +48,14 @@ const MainLayout = (props: IMainLayoutProps) => {
   const matchesSM = useMediaQuery(theme.breakpoints.down("md"));
   const matchesMD = useMediaQuery(theme.breakpoints.up("md"));
   const {
-    authState: { isAuthenticated, currentUser },
+    authState,
     siteCoordinator: { sidebarOpen },
-    userState: {
-      profile: { firstname, lastname, isAdmin, avatarUrl },
-    },
+    userState,
     onToggleSidebar,
     onSignoutStart,
     children,
   } = props;
-
+  const { isAuthenticated } = authState;
   if (typeof window !== "undefined" && window.wiser) {
     console.log("success wiser notify main");
     window.wiser.resetNotif(window.location.href);
@@ -97,7 +95,8 @@ const MainLayout = (props: IMainLayoutProps) => {
           onSidebarClose={handleSidebarClose}
           clickHandler={sidebarClickHandler}
           onSignout={onSignoutStart}
-          {...props}
+          userState={userState}
+          authState={authState}
         />
       )}
       <main

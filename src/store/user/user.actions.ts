@@ -10,9 +10,9 @@ export const setCheckedEmail = (value:any) => ({
   payload: { value }
 });
 
-export const profileSaveStart = (value:any, history:any) => ({
+export const profileSaveStart = (value:any) => ({
   type: UserType.PROFILE_SAVE_START,
-  payload: { value, history }
+  payload: { value }
 });
 
 export const profileSaveSuccess = (data:any) => ({

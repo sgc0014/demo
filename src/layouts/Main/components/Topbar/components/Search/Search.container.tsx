@@ -1,19 +1,20 @@
 /* eslint-disable implicit-arrow-linebreak */
-import { connect } from 'react-redux';
+import { showSnackbarNotification } from "@store/notification/notification.actions";
+import { searchStart } from "@store/search/search.actions";
+import { connect } from "react-redux";
 
-// import { searchStart } from 'src/store/search/search.actions';
-// import { showSnackbarNotification } from 'src/store/notification/notification.actions';
-import { RootState } from '../../../../../../store';
+import { RootState } from "../../../../../../store";
 
-type DispatchSearchStart = (value:any,history:any) => () => void
-const mapStateToProps = (state:RootState) => ({
+const mapStateToProps = (state: RootState) => ({
   // searchState: state.search,
   spacrunState: state.spacrun,
 });
 
-const mapDispatchToProps = (dispatch:any) => ({
-  // onSearchStart: (value, history) => dispatch(searchStart(value, history)),
-  // onShowNotification: (status, message) => dispatch(showSnackbarNotification(status, message)),
+const mapDispatchToProps = (dispatch: any) => ({
+  // onSearchStart: (value: any, history: any) =>
+  //   dispatch(searchStart(value, history)),
+  onShowNotification: (status: any, message: any) =>
+    dispatch(showSnackbarNotification(status, message)),
 });
 
 const container = connect(mapStateToProps, mapDispatchToProps);

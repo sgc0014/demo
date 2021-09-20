@@ -35,9 +35,9 @@ interface IChartbox {
   symbol: string;
   historical: any[];
   className?: string;
-  follows: any;
-  onFollow: any;
-  onUnfollow: any;
+  follows:any;
+  onFollow: (value:string) => void;
+  onUnfollow:  (value:string) => void;
 }
 const ChartBox = (props: IChartbox) => {
   const classes = useStyles();
@@ -100,7 +100,7 @@ const ChartBox = (props: IChartbox) => {
         // color: 'red',
       
         upColor: "green",
-        downColor: "red",
+      
         lineColor: "red",
         upLineColor: "green",
       },

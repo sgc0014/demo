@@ -16,7 +16,7 @@ if (typeof Highcharts === "object") {
   HighchartsMore(Highcharts);
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     width: "100%",
     marginTop: 30,

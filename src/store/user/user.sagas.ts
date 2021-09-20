@@ -59,10 +59,10 @@ export function* fetchStripeAsync({
 
 
 export function* profileSaveAsync({
-  payload: { value, history },
+  payload: { value },
 }: any) {
   try {
-    console.log(history);
+   
     const authState: IAuth = yield select(getAuthState);
     const userid = authState.currentUser.uid;
     // console.log('userid: ', userid);

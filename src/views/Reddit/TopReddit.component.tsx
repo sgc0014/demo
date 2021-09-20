@@ -300,7 +300,7 @@ const Reddit = (props: IRedditProps) => {
                   </AppBar>
                   <TabPanel value="1" style={{ padding: 0 }}>
                     {posts &&
-                      posts.map((row, index) => {
+                      posts.map((row:any, index:number) => {
                         let desc = row.selftext;
                         if (desc === "[removed]" || desc === "[deleted]") {
                           desc = "";
@@ -346,7 +346,7 @@ const Reddit = (props: IRedditProps) => {
                   </TabPanel>
                   <TabPanel value="2" style={{ padding: 0 }}>
                     {comments &&
-                      comments.map((row, index) => {
+                      comments.map((row:any, index:number) => {
                         return (
                           <Card key={`posts-${index}`} className={classes.card}>
                             <div className={classes.cardContainer}>

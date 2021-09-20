@@ -37,6 +37,7 @@ export function* fetchFollowListAsync({ payload: { userid } }: any) {
 
 export function* followAsync({ payload: { value } }: any) {
   try {
+    console.log("start")
     const authState: IAuth = yield select(getAuthState);
     const { spac }: ISpacrun = yield select(getSpacrunState);
     const userid = authState.currentUser.uid;
