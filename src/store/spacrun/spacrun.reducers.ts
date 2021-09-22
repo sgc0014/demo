@@ -24,7 +24,7 @@ const INITIAL_STATE = {
 
 const spacrunReducer = (state = INITIAL_STATE, action:any) => {
   const { type, payload } = action;
-  let updatedState:ISpacrun;
+  let updatedState:any;
   switch (type) {
     case spacRunTypes.FETCH_TOP_LIST_START:
       return {

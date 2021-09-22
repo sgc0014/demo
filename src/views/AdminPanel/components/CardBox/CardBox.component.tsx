@@ -29,8 +29,8 @@ const useStyles = makeStyles((theme) => ({
 interface ICardBoxProps{
   name:string;
   Icon:any;
-  data:any;
-  subtitle:any;
+  data:string;
+  subtitle:string;
 }
 const CardBox = (props:ICardBoxProps) => {
   const classes = useStyles();

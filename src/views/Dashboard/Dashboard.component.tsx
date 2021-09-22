@@ -91,6 +91,7 @@ const Dashboard = (props: IDashboardProps) => {
     onFetchHistoricalStart,
     onShowNotification,
   } = props;
+  
   const [price, setPrice] = useState<IPriceState>({
     isFetching: false,
     currencySymbol: "",
@@ -104,7 +105,7 @@ const Dashboard = (props: IDashboardProps) => {
   let symbol =
     typeof document !== "undefined" &&
     document.location.pathname.split("/").slice(2, 3).toString();
-  console.log(symbol);
+ 
   if (!symbol) {
     // eslint-disable-next-line prefer-destructuring
     symbol = follows[0] || "PSTH";

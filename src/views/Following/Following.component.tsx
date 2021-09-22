@@ -112,7 +112,7 @@ const Following = (props: IFollowingProps) => {
     onShowNotification("success", `${name} unfollowed successfully.`);
   };
 
-  const handleEmailAlert = (event: any, symbol: any, alertValue: any) => {
+  const handleEmailAlert = (event: any, symbol: string, alertValue: boolean) => {
     onShowNotification(
       "success",
       `Email alert set successfully for ${symbol}.`
@@ -131,7 +131,7 @@ const Following = (props: IFollowingProps) => {
     }
   };
 
-  const handleSMSAlert = (event: any, symbol: string, alertValue: any) => {
+  const handleSMSAlert = (event: any, symbol: string, alertValue: boolean) => {
     onSPACSMSAlertStart(symbol, !alertValue);
     if (alertValue) {
       onShowNotification(

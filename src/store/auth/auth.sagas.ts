@@ -18,13 +18,15 @@ export function* loadUserAsync() {
       name: attributes.name,
       email: attributes.email,
     };
-
+    console.log("user logged in");
     yield put(userActions.fetchProfileStart(uid));
+    console.log(" fetch profile success");
     yield put(userHistoryActions.fetchFollowList(uid));
     // load details to auth state
+    console.log("1 load user success");
     yield put(authActions.loadUserSuccess(userData));
   } catch (err) {
-    console.error(err);
+    console.error("err", err);
     // yield put(loadUserFail(err));
   } finally {
     yield put(authActions.loadUserFinally());
@@ -114,9 +116,9 @@ export function* watchSignout() {
 
 export function* authSagas() {
   yield all([
+    call(watchLoadUser),
     call(watchSignin),
     call(watchSignup),
     call(watchSignout),
-    call(watchLoadUser),
   ]);
 }

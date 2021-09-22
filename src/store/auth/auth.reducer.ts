@@ -1,3 +1,4 @@
+import { HYDRATE } from 'next-redux-wrapper';
 import * as AuthType from './auth.types';
 
 const INITIAL_STATE = {
@@ -12,6 +13,9 @@ const authReducer = (state = INITIAL_STATE, action:any) => {
   const { type, payload } = action;
   let updatedState = null;
   switch (type) {
+    case HYDRATE: {
+      return { ...state, ...action.payload }
+    }
     case AuthType.SIGN_IN_START:
     case AuthType.SIGN_UP_START:
     case AuthType.LOAD_USER_START:

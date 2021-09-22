@@ -24,8 +24,9 @@ export function* fetchProfileAsync({ payload: { userid } }: any) {
       `https://br6czx0kl6.execute-api.us-east-1.amazonaws.com/dev/profile/fetch/${userid}`
     );
     console.log("profile: ", data);
-    if (!data.message) {
+    if (data.subscriptionStatus) {
       yield put(fetchProfileSuccess(data));
+      console.log(" fetch profile success user-saga");
     } else {
       yield put(showSnackbarNotification("error", "User not found."));
       yield put(fetchProfileFail({ message: "User not found." }));

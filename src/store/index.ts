@@ -1,6 +1,6 @@
 import { applyMiddleware, createStore, Middleware } from "redux";
 import createSagaMiddleware from "redux-saga";
-import { createWrapper, MakeStore } from "next-redux-wrapper";
+import { createWrapper } from "next-redux-wrapper";
 
 import rootReducer from "./root-reducer";
 import rootSaga from "./root-saga";

@@ -3,6 +3,7 @@ import React from "react";
 import WithLayout from "@components/WithLayout";
 import { Main } from "src/layouts";
 import FollowingPage from "@views/Following";
+import PrivateRoute from "src/HOC/privateRoute";
 
 const Following: NextPage = () => {
   return (
@@ -12,4 +13,4 @@ const Following: NextPage = () => {
   );
 };
 
-export default Following;
+export default PrivateRoute(Following);
