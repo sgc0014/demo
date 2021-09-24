@@ -29,6 +29,7 @@ const PublicRoute = (Component: any) => {
         if (isAuthenticated && subscription) {
           isSubscriber = subscription.status !== "canceled" || role === "admin";
         }
+     
         if (isAuthenticated && isSubscriber) {
           router.push(`/${pathname}`);
         }

@@ -3,6 +3,7 @@ import React from "react";
 import WithLayout from "@components/WithLayout";
 import { Main } from "src/layouts";
 import UserManagementPage from "@views/AdminPanel/UserManagement.component";
+import PrivateRoute from "src/HOC/privateRoute";
 
 const Admin: NextPage = () => {
   return (
@@ -12,4 +13,4 @@ const Admin: NextPage = () => {
   );
 };
 
-export default Admin;
+export default PrivateRoute(Admin);

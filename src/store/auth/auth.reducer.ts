@@ -1,28 +1,29 @@
-import { HYDRATE } from 'next-redux-wrapper';
-import { IAuth } from 'src/interface';
-import * as AuthType from './auth.types';
+import { HYDRATE } from "next-redux-wrapper";
+import { IAuth } from "src/interface";
+import * as AuthType from "./auth.types";
 
 const INITIAL_STATE = {
   isAuthenticated: false,
   currentUser: {},
   newUser: {},
   error: null,
-  loading: false
+  loading: true,
 };
 
-const authReducer = (state:IAuth = INITIAL_STATE, action:any) => {
+const authReducer = (state: IAuth = INITIAL_STATE, action: any) => {
   const { type, payload } = action;
   let updatedState = null;
   switch (type) {
     case HYDRATE: {
-      return { ...state, ...action.payload }
+      return { ...state, ...action.payload };
     }
+    
     case AuthType.SIGN_IN_START:
     case AuthType.SIGN_UP_START:
     case AuthType.LOAD_USER_START:
       return {
         ...state,
-        loading: true
+        loading: true,
       };
 
     case AuthType.SIGN_IN_SUCCESS:
@@ -31,23 +32,23 @@ const authReducer = (state:IAuth = INITIAL_STATE, action:any) => {
         ...state,
         isAuthenticated: true,
         currentUser: payload,
-        loading: false
+        loading: false,
       };
 
     case AuthType.PREFETCH_USER_CONTACT:
       updatedState = {
-        ...state
+        ...state,
       };
       updatedState.currentUser = {
         ...updatedState.currentUser,
-        contact: payload.contact
+        contact: payload.contact,
       };
       return updatedState;
 
     case AuthType.SIGN_UP_SUCCESS:
       return {
         ...state,
-        loading: false
+        loading: false,
       };
 
     case AuthType.SIGN_OUT_SUCCESS:
@@ -55,7 +56,7 @@ const authReducer = (state:IAuth = INITIAL_STATE, action:any) => {
         ...state,
         isAuthenticated: null,
         currentUser: {},
-        error: null
+        error: null,
       };
 
     case AuthType.LOAD_USER_FAILURE:
@@ -65,7 +66,7 @@ const authReducer = (state:IAuth = INITIAL_STATE, action:any) => {
       return {
         ...state,
         loading: false,
-        error: payload
+        error: payload,
       };
 
     case AuthType.LOAD_USER_FINALLY:

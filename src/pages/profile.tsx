@@ -3,6 +3,7 @@ import React from "react";
 import WithLayout from "@components/WithLayout";
 import { Main } from "src/layouts";
 import ProfilePage from "@views/Profile";
+import UnsubscribeRoute from "src/HOC/unsubscribeRoute";
 
 const Profile: NextPage = () => {
   return (
@@ -12,4 +13,4 @@ const Profile: NextPage = () => {
   );
 };
 
-export default Profile;
+export default UnsubscribeRoute(Profile);

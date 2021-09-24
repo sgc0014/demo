@@ -9,7 +9,6 @@ const PrivateRoute = (Component: any) => {
   const HOCComponent = () => {
     const dispatch = useDispatch();
     const router = useRouter();
-    
 
     const { isAuthenticated, loading } = useSelector(
       (state: RootState) => state.auth
@@ -45,18 +44,19 @@ const PrivateRoute = (Component: any) => {
       if (isAuthenticated && subscription) {
         isSubscriber = subscription.status !== "canceled" || role === "admin";
       }
-    
-
-      if (!isAuthenticated ) {
+console.log(isAuthenticated)
+      if (!isAuthenticated) {
         // not logged in so redirect to login page with the return url
         router.push("/login");
+      }
+      if (pathname === "admin" && (!role || role !== "admin")) {
+        router.push("/profile");
       }
 
       if (isAuthenticated && !isSubscriber) {
         // logged in but not subscribed so redirect to profile
         router.push("/profile");
       }
-    
     }, []);
 
     if (loading || profileLoading || subscriptionLoading) {

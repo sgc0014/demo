@@ -9,10 +9,9 @@ import { showSnackbarNotification } from "../notification/notification.actions";
 
 export function* loadUserAsync() {
   try {
-  
     yield Auth.currentSession();
     const { username, attributes } = yield Auth.currentAuthenticatedUser();
-    if (username && attributes) {
+    if (username && attributes.sub) {
       const uid = attributes.sub;
       const userData = {
         username,
@@ -20,17 +19,19 @@ export function* loadUserAsync() {
         name: attributes.name,
         email: attributes.email,
       };
-     
+
       yield put(userActions.fetchProfileStart(uid));
-     
+
       yield put(userHistoryActions.fetchFollowList(uid));
       // load details to auth state
-     
+
       yield put(authActions.loadUserSuccess(userData));
+    } else {
+      yield put(authActions.loadUserFinally());
     }
   } catch (err) {
     console.error("err", err);
-    // yield put(loadUserFail(err));
+    // yield put(authActions.signinFail("User not logged in."));
   } finally {
     yield put(authActions.loadUserFinally());
   }
