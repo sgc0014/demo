@@ -243,6 +243,7 @@ const Profile = (props: IProfileProps) => {
       onShowNotification("success", "SMS alert set successfully.");
     }
   };
+
   const handleChangeEmail = (event: any, value: any) => {
     onSetCheckedEmail(!value);
     if (value) {
@@ -327,7 +328,7 @@ const Profile = (props: IProfileProps) => {
                   <Grid item xs={12} sm={6}>
                     <Typography component="span" className={classes.title}>
                       Password&nbsp;
-                      <Link href={"/change-password"}>
+                      <Link href={"/forgot-password"}>
                         <Typography className={classes.link}>Change</Typography>
                       </Link>
                     </Typography>

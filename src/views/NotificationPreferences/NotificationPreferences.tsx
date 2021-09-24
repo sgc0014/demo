@@ -91,9 +91,11 @@ const NotificationPreferences = (props: INotificationProps) => {
   const isSubscriber = profile?.subscription
     ? profile?.subscription?.status !== "canceled"
     : false;
-  let userid = document.location.pathname.split("/").slice(2, 3).toString();
+  let userid =
+    typeof window !== "undefined" &&
+    window.location.pathname.split("/").slice(2, 3).toString();
   React.useEffect(() => {
-    if (!profile || profile?.id !== userid) {
+    if ((!profile || profile?.id !== userid) && typeof userid === "string") {
       onFetchProfileStart(userid);
     }
   }, []);

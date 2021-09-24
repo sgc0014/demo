@@ -35,9 +35,9 @@ interface IChartbox {
   symbol: string;
   historical: any[];
   className?: string;
-  follows:any;
-  onFollow: (value:string) => void;
-  onUnfollow:  (value:string) => void;
+  follows: any;
+  onFollow: (value: string) => void;
+  onUnfollow: (value: string) => void;
 }
 const ChartBox = (props: IChartbox) => {
   const classes = useStyles();
@@ -98,9 +98,9 @@ const ChartBox = (props: IChartbox) => {
     plotOptions: {
       candlestick: {
         // color: 'red',
-      
-        upColor: "green",
-      
+
+        // upColor: "green",
+
         lineColor: "red",
         upLineColor: "green",
       },

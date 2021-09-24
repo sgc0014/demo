@@ -185,7 +185,7 @@ const DrawerItems = (props: IDarwerProps) => {
     profile: { firstname, lastname, isAdmin, avatarUrl },
   } = userState;
   const name = `${firstname || ""} ${lastname || ""}`;
-  console.log(userState);
+  
   return (
     <>
       <List className={classes.listContainer}>

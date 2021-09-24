@@ -26,5 +26,6 @@ export const getStaticProps = wrapper.getStaticProps((store) => async () => {
   await store.sagaTask?.toPromise();
   return {
     props: {},
+    revalidate: 43200,
   };
 });

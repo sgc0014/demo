@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { makeStyles, createStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import Container from "@material-ui/core/Container";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import Container from "@material-ui/core/Container";
+import Grid from "@material-ui/core/Grid";
+import { createStyles, makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import { Money as MoneyIcon } from "@material-ui/icons";
-import { CardBox, TableCard, ChartBox } from "./components";
+import React, { useEffect, useState } from "react";
 import { addComma } from "src/common/utils";
+import { IAuth, ISpacrun, IUserHistoryState } from "src/interface/";
+import { CardBox, ChartBox, TableCard } from "./components";
 import container from "./Dashboard.container";
-import { IAuth, IUserHistoryState, ISpacrun } from "src/interface/";
 
 const useStyles = makeStyles((theme: any) =>
   createStyles({
@@ -83,7 +82,7 @@ interface IPriceState {
 }
 const Dashboard = (props: IDashboardProps) => {
   const classes = useStyles();
-
+ 
   const {
     authState: { isAuthenticated },
     userHistoryState: { follows },
@@ -91,7 +90,7 @@ const Dashboard = (props: IDashboardProps) => {
     onFetchHistoricalStart,
     onShowNotification,
   } = props;
-  
+
   const [price, setPrice] = useState<IPriceState>({
     isFetching: false,
     currencySymbol: "",
@@ -103,9 +102,8 @@ const Dashboard = (props: IDashboardProps) => {
     lastVolume: null,
   });
   let symbol =
-    typeof document !== "undefined" &&
-    document.location.pathname.split("/").slice(2, 3).toString();
- 
+    typeof window !== "undefined" && window.location.pathname.split("/")[2];
+  
   if (!symbol) {
     // eslint-disable-next-line prefer-destructuring
     symbol = follows[0] || "PSTH";
@@ -115,11 +113,12 @@ const Dashboard = (props: IDashboardProps) => {
     historicalData = spacHistory[symbol];
   }
   useEffect(() => {
+    
     const fetchPrice = async () => {
       try {
         setPrice({ isFetching: true });
         const item = symbol && spac[symbol];
-
+      
         if (item) {
           setPrice({
             isFetching: false,

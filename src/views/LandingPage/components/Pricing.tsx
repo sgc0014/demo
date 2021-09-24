@@ -206,7 +206,6 @@ const Pricing = (props: IProps) => {
                   // subheader={tier.subheader}
                   titleTypographyProps={{ align: "center" }}
                   subheaderTypographyProps={{ align: "center" }}
-                  action={tier.title === "Premium"}
                   className={classes.cardHeader}
                   classes={{ title: classes.cardTitle }}
                 />

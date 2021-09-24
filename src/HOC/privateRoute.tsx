@@ -19,6 +19,7 @@ const PrivateRoute = (Component: any) => {
     const {
       profile: { subscription, role },
       loading: profileLoading,
+      subscriptionLoading,
     } = useSelector((state: RootState) => state.user);
 
     const { pathname: pathnameState } = useSelector(
@@ -45,10 +46,9 @@ const PrivateRoute = (Component: any) => {
       if (isAuthenticated && subscription) {
         isSubscriber = subscription.status !== "canceled" || role === "admin";
       }
-      // if (isAuthenticated && isSubscriber) {
-      //  router.push(`/${pathnameState}`);
-      // }
-      if (!isAuthenticated) {
+    
+
+      if (!isAuthenticated ) {
         // not logged in so redirect to login page with the return url
         router.push("/login");
       }
@@ -57,9 +57,10 @@ const PrivateRoute = (Component: any) => {
         // logged in but not subscribed so redirect to profile
         router.push("/profile");
       }
-    }, [profileLoading, loading]);
+    
+    }, []);
 
-    if (loading || profileLoading) {
+    if (loading || profileLoading || subscriptionLoading) {
       return <SimpleBackdrop open />;
     }
     return <Component />;
@@ -67,13 +68,13 @@ const PrivateRoute = (Component: any) => {
   return HOCComponent;
 };
 
-PrivateRoute.propTypes = {
-  component: PropTypes.any.isRequired,
-  layout: PropTypes.any.isRequired,
-  path: PropTypes.string,
-  auth: PropTypes.object.isRequired,
-  user: PropTypes.object.isRequired,
-  onSetPathname: PropTypes.func.isRequired,
-};
+// PrivateRoute.propTypes = {
+//   component: PropTypes.any.isRequired,
+//   layout: PropTypes.any.isRequired,
+//   path: PropTypes.string,
+//   auth: PropTypes.object.isRequired,
+//   user: PropTypes.object.isRequired,
+//   onSetPathname: PropTypes.func.isRequired,
+// };
 
 export default PrivateRoute;

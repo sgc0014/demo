@@ -6,6 +6,7 @@ import RedditPage from "@views/Reddit";
 import { wrapper } from "src/store/";
 import { END } from "@redux-saga/core";
 import { fetchTopRedditQueryStart } from "@store/reddit/reddit.actions";
+import PrivateRoute from "src/HOC/privateRoute";
 
 const Reddit: NextPage = () => {
   return (
@@ -15,7 +16,7 @@ const Reddit: NextPage = () => {
   );
 };
 
-export default Reddit;
+export default PrivateRoute(Reddit);
 
 export const getStaticProps = wrapper.getStaticProps((store) => async () => {
   store.dispatch(fetchTopRedditQueryStart());
@@ -24,5 +25,6 @@ export const getStaticProps = wrapper.getStaticProps((store) => async () => {
   await store.sagaTask?.toPromise();
   return {
     props: {},
+    revalidate: 43200,
   };
 });

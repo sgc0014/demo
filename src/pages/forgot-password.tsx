@@ -3,6 +3,8 @@ import React from "react";
 import WithLayout from "@components/WithLayout";
 import { Main } from "src/layouts";
 import ForgotPasswordPage from "@views/ForgotPassword/ForgotPassword.component";
+import PublicRoute from "src/HOC/publicRoute";
+import PrivateRoute from "src/HOC/privateRoute";
 
 const ForgotPassword: NextPage = () => {
   return (
@@ -12,4 +14,4 @@ const ForgotPassword: NextPage = () => {
   );
 };
 
-export default ForgotPassword;
+export default PrivateRoute(ForgotPassword);

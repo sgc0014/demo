@@ -13,4 +13,4 @@ const View: NextPage = () => {
   );
 };
 
-export default View;
+export default PrivateRoute(View);

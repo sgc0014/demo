@@ -3,6 +3,7 @@ import React from "react";
 import WithLayout from "@components/WithLayout";
 import { Main } from "src/layouts";
 import ForgotPasswordVerificationPage from "@views/ForgotPassword/ForgotPasswordVerification";
+import PublicRoute from "src/HOC/publicRoute";
 
 const ForgotPassword: NextPage = () => {
   return (
@@ -12,4 +13,4 @@ const ForgotPassword: NextPage = () => {
   );
 };
 
-export default ForgotPassword;
+export default PublicRoute(ForgotPassword);
