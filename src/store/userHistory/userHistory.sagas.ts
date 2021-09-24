@@ -60,7 +60,7 @@ export function* followAsync({ payload: { value } }: any) {
 export function* unFollowAsync({ payload: { value } }: any) {
   try {
     const authState: IAuth = yield select(getAuthState);
-    const userid: string = authState.currentUser.uid;
+    const userid: string | undefined = authState.currentUser.uid;
     // console.log('value: ', value);
     const result: AxiosResponse = yield axios.post(
       "https://br6czx0kl6.execute-api.us-east-1.amazonaws.com/dev/heart/clear",
@@ -82,7 +82,7 @@ export function* setSPACEmailAlertSaveAsync({
 }: any) {
   try {
     const authState: IAuth = yield select(getAuthState);
-    const userid: string = authState.currentUser.uid;
+    const userid: string | undefined = authState.currentUser.uid;
     const { data } = yield axios.post(
       `https://br6czx0kl6.execute-api.us-east-1.amazonaws.com/dev/set/spacEmailAlert/${userid}`,
       {
@@ -103,7 +103,7 @@ export function* setSPACSMSAlertSaveAsync({
 }: any) {
   try {
     const authState: IAuth = yield select(getAuthState);
-    const userid: string = authState.currentUser.uid;
+    const userid: string | undefined = authState.currentUser.uid;
     const { data } = yield axios.post(
       `https://br6czx0kl6.execute-api.us-east-1.amazonaws.com/dev/set/spacSmsAlert/${userid}`,
       {

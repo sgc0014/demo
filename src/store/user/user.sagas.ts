@@ -135,9 +135,9 @@ export function* sendStripePaymentEmailAsync({
 export function* setEmailSendStartAsync({ payload: { value } }:any) {
   try {
     const authState: IAuth = yield select(getAuthState);
-    const userState: IUserState = yield select(getUserState);
+    const userstate: IUserState = yield select(getUserState);
     // FOR CASE PREMIUM NOTIFICATION PREFERENCES WHERE NO AUTH AND USER IS SET
-    const userid = authState?.currentUser?.uid || userState?.profile?.id;
+    const userid = authState?.currentUser?.uid || userstate?.profile?.id;
     const { data } = yield axios.post(
       `https://br6czx0kl6.execute-api.us-east-1.amazonaws.com/dev/profile/set/emailAlert/${userid}`,
       {
@@ -159,9 +159,9 @@ export function* setEmailSendStartAsync({ payload: { value } }:any) {
 export function* setSMSSendStartAsync({ payload: { value } }:any) {
   try {
     const authState: IAuth = yield select(getAuthState);
-    const userState: IUserState = yield select(getUserState);
+    const userstate: IUserState = yield select(getUserState);
     // FOR CASE PREMIUM NOTIFICATION PREFERENCES WHERE NO AUTH AND USER IS SET
-    const userid = authState?.currentUser?.uid || userState?.profile?.id;
+    const userid = authState?.currentUser?.uid || userstate?.profile?.id;
     const { data } = yield axios.post(
       `https://br6czx0kl6.execute-api.us-east-1.amazonaws.com/dev/profile/set/smsAlert/${userid}`,
       {
@@ -182,15 +182,15 @@ export function* setSMSSendStartAsync({ payload: { value } }:any) {
 export function* cancelSubscriptionAsync() {
   try {
     const authState:IAuth = yield select(getAuthState);
-    const userState: IUserState = yield select(getUserState);
+    const userstate: IUserState = yield select(getUserState);
     const {
       profile: { firstname, email },
-    } = userState;
+    } = userstate;
 
     const { data } = yield axios.post(
       `https://br6czx0kl6.execute-api.us-east-1.amazonaws.com/dev/subsctiption/cancel/${authState.currentUser?.uid}`,
       {
-        subscriptionId: userState.profile?.subscriptionId,
+        subscriptionId: userstate.profile?.subscriptionId,
         firstname,
         email,
       }

@@ -55,7 +55,7 @@ export function* fetchTopListAsync() {
 
 export function* fetchSpacListAsync() {
   try {
-    console.log("fetchSpacListAsync");
+   
     const spacList: AxiosResponse = yield axios.get(
       "https://br6czx0kl6.execute-api.us-east-1.amazonaws.com/dev/spac/list"
     );

@@ -72,7 +72,7 @@ const useStyles = makeStyles((theme: any) => ({
 
 interface IPaymentSuccessProps {
   auth: IAuth;
-  userState: IUserState;
+  userstate: IUserState;
   onSendStripePaymentSuccessEmail: (
     paymentType: string,
     firstname: string,
@@ -83,7 +83,7 @@ function PaymentSuccess(props: IPaymentSuccessProps) {
   const classes = useStyles();
   const {
     auth: { isAuthenticated },
-    userState: {
+    userstate: {
       profile: { firstname, email },
     },
     onSendStripePaymentSuccessEmail,

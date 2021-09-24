@@ -11,7 +11,7 @@ import Tab from "@material-ui/core/Tab";
 import AppBar from "@material-ui/core/AppBar";
 import TabPanel from "@material-ui/lab/TabPanel";
 import { ISpacrun } from "src/interface/";
-
+import {returnBubbleChartHighChartDate} from './utils'
 if (typeof Highcharts === "object") {
   HighchartsMore(Highcharts);
 }
@@ -215,7 +215,7 @@ const BubbleChartBox = (props: IBubbleChartProps) => {
       labels: {
         // format: '{value}'
         formatter: function () {
-          return this.axis.defaultLabelFormatter.call(this);
+          return returnBubbleChartHighChartDate(this)
         },
       },
     },
@@ -298,7 +298,7 @@ const BubbleChartBox = (props: IBubbleChartProps) => {
       labels: {
         // format: '{value}'
         formatter: function () {
-          return this.axis.defaultLabelFormatter.call(this);
+          return returnBubbleChartHighChartDate(this)
         },
       },
     },
@@ -381,7 +381,7 @@ const BubbleChartBox = (props: IBubbleChartProps) => {
       labels: {
         // format: '{value}'
         formatter: function (): any {
-          return this.axis.defaultLabelFormatter.call(this);
+          return returnBubbleChartHighChartDate()
         },
       },
     },

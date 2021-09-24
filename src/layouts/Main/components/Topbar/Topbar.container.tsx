@@ -5,7 +5,7 @@ import { setDialogOpen } from 'src/store/earlyAccess/earlyAccess.actions';
 
 const mapStateToProps = (state:any) => ({
   auth: state.auth,
-  userState: state.user,
+  userstate: state.user,
 });
 
 const mapDispatchToProps = (dispatch:any) => ({

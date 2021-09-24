@@ -7,7 +7,7 @@ import { subscribeUser, sendStripePaymentEmail } from 'src/store/user/user.actio
 
 const mapStateToProps = (state:RootState) => ({
   auth: state.auth,
-  userState: state.user,
+  userstate: state.user,
 });
 
 const mapDispatchToProps = (dispatch:any) => ({

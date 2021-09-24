@@ -38,7 +38,7 @@ const CardBox = (props:ICardBoxProps) => {
   return (
     <Card className={clsx(classes.root)}>
       <CardContent>
-        <Grid container justify="space-between">
+        <Grid container justifyContent="space-between">
           <Grid item>
             <Typography
               className={classes.title}

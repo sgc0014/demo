@@ -1,15 +1,16 @@
 import { HYDRATE } from 'next-redux-wrapper';
+import { IAuth } from 'src/interface';
 import * as AuthType from './auth.types';
 
 const INITIAL_STATE = {
-  isAuthenticated: null,
+  isAuthenticated: false,
   currentUser: {},
   newUser: {},
   error: null,
   loading: false
 };
 
-const authReducer = (state = INITIAL_STATE, action:any) => {
+const authReducer = (state:IAuth = INITIAL_STATE, action:any) => {
   const { type, payload } = action;
   let updatedState = null;
   switch (type) {

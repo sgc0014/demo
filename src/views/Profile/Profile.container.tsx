@@ -12,7 +12,7 @@ import { RootState } from 'src/store/';
 
 const mapStateToProps = (state:RootState) => ({
   auth: state.auth,
-  userState: state.user,
+  userstate: state.user,
 });
 
 const mapDispatchToProps = (dispatch:any) => ({

@@ -24,6 +24,9 @@ import { formatDateTimeHourMilliseconds } from "src/common/utils";
 // import ShowMore from 'src/common/ShowMore';
 import container from "./Reddit.container";
 import { IRedditState } from "src/interface/";
+import { wrapper } from "src/store/";
+import { END } from "@redux-saga/core";
+import { fetchTopRedditQueryStart } from "@store/reddit/reddit.actions";
 
 const useStyles = makeStyles((theme: any) =>
   createStyles({
@@ -134,7 +137,7 @@ const Reddit = (props: IRedditProps) => {
   // const matchesXS = useMediaQuery(theme.breakpoints.down('xs'));
   // const matchesXSBT = useMediaQuery(theme.breakpoints.between('599', '750'));
   const {
-    redditState: {  topList, isFetching, posts, comments },
+    redditState: { topList, isFetching, posts, comments },
     onFetchTopRedditQuery,
     onFetchPostsStart,
     onFetchCommentsStart,
@@ -142,9 +145,9 @@ const Reddit = (props: IRedditProps) => {
   // const [searchInput, setSearchInput] = React.useState(null);
   const [tabValue, setTabValue] = React.useState("1");
 
-  React.useEffect(() => {
-    onFetchTopRedditQuery();
-  }, []);
+  // React.useEffect(() => {
+  //   onFetchTopRedditQuery();
+  // }, []);
 
   React.useEffect(() => {
     if (topList) {
@@ -236,6 +239,7 @@ const Reddit = (props: IRedditProps) => {
 
   return (
     <div className={classes.root}>
+      {console.log(topList)}
       <Container style={{ maxWidth: 1400 }}>
         <Grid className={classes.newsbg}>
           <Grid container spacing={2}>
@@ -300,7 +304,7 @@ const Reddit = (props: IRedditProps) => {
                   </AppBar>
                   <TabPanel value="1" style={{ padding: 0 }}>
                     {posts &&
-                      posts.map((row:any, index:number) => {
+                      posts.map((row: any, index: number) => {
                         let desc = row.selftext;
                         if (desc === "[removed]" || desc === "[deleted]") {
                           desc = "";
@@ -346,7 +350,7 @@ const Reddit = (props: IRedditProps) => {
                   </TabPanel>
                   <TabPanel value="2" style={{ padding: 0 }}>
                     {comments &&
-                      comments.map((row:any, index:number) => {
+                      comments.map((row: any, index: number) => {
                         return (
                           <Card key={`posts-${index}`} className={classes.card}>
                             <div className={classes.cardContainer}>
@@ -397,3 +401,4 @@ const Reddit = (props: IRedditProps) => {
 };
 
 export default container(Reddit);
+

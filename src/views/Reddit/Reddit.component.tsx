@@ -1,29 +1,22 @@
-import React from "react";
-import { makeStyles, createStyles } from "@material-ui/core/styles";
 import {
   Button,
-  Card,
-  CardHeader,
-  CardContent,
-  CardActions,
-  Typography,
-  Container,
+  Card, CardActions, CardContent, CardHeader, Container,
   Grid,
   TextField,
-  Tooltip,
-  useMediaQuery,
-  useTheme,
+  Tooltip, Typography, useMediaQuery,
+  useTheme
 } from "@material-ui/core";
+import AppBar from "@material-ui/core/AppBar";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import { makeStyles } from "@material-ui/core/styles";
+import Tab from "@material-ui/core/Tab";
 import TabContext from "@material-ui/lab/TabContext";
 import TabList from "@material-ui/lab/TabList";
-import Tab from "@material-ui/core/Tab";
-import AppBar from "@material-ui/core/AppBar";
 import TabPanel from "@material-ui/lab/TabPanel";
+import React from "react";
 import { formatDateTimeMilliseconds } from "src/common/utils";
-import ShowMore from "src/common/ShowMore";
+import { IRedditState } from "src/interface/";
 import container from "./Reddit.container";
-import { IRedditComment, IRedditPost, IRedditState } from "src/interface/";
 
 const useStyles = makeStyles((theme: any) => ({
   root: {

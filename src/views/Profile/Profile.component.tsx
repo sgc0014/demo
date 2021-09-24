@@ -124,7 +124,7 @@ const useStyles = makeStyles((theme: any) => ({
 
 interface IProfileProps {
   auth: IAuth;
-  userState: IUserState;
+  userstate: IUserState;
   onSetCheckedSMS: (value: boolean) => void;
   onSetCheckedEmail: (value: boolean) => void;
   onProfileSaveStart: (formData: any) => void;
@@ -140,7 +140,7 @@ const Profile = (props: IProfileProps) => {
     auth: {
       currentUser: { uid, email, username },
     },
-    userState: {
+    userstate: {
       loading,
       profile: {
         firstname,

@@ -1,5 +1,6 @@
-import { ISpacrun } from 'src/interface/';
-import * as spacRunTypes from './spacrun.types';
+import { HYDRATE } from "next-redux-wrapper";
+import { ISpacrun } from "src/interface/";
+import * as spacRunTypes from "./spacrun.types";
 
 const INITIAL_STATE = {
   loading: false,
@@ -19,13 +20,16 @@ const INITIAL_STATE = {
   monthlyLosers: [],
   averageVolume: [],
   volumeSpike: [],
-  errors: {}
+  errors: {},
 };
 
-const spacrunReducer = (state = INITIAL_STATE, action:any) => {
+const spacrunReducer = (state = INITIAL_STATE, action: any) => {
   const { type, payload } = action;
-  let updatedState:any;
+  let updatedState: any;
   switch (type) {
+    case HYDRATE: {
+      return { ...state, ...action.payload.spacrun };
+    }
     case spacRunTypes.FETCH_TOP_LIST_START:
       return {
         ...state,
@@ -69,11 +73,11 @@ const spacrunReducer = (state = INITIAL_STATE, action:any) => {
         ...state,
         spac: {
           ...state.spac,
-        }
+        },
       };
       updatedState.spacLoading = false;
       updatedState.spacDate = payload.data.date;
-      payload.data.spac.forEach((meta:any) => {
+      payload.data.spac.forEach((meta: any) => {
         updatedState.spac[meta.symbol] = meta;
       });
       return updatedState;
@@ -104,7 +108,7 @@ const spacrunReducer = (state = INITIAL_STATE, action:any) => {
       return {
         ...state,
         historicalLoading: false,
-        errors: payload
+        errors: payload,
       };
 
     default:

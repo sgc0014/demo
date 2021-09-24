@@ -8,7 +8,7 @@ import { showSnackbarNotification } from 'src/store/notification/notification.ac
 import { RootState } from 'src/store/';
 
 const mapStateToProps = (state:RootState) => ({
-  userState: state.user,
+  userstate: state.user,
   userHistoryState: state.userHistory,
 });
 

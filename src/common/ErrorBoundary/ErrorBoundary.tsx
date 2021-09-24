@@ -1,18 +1,22 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React from "react";
 
-class ErrorBoundry extends React.Component {
-  constructor(props) {
+type MyProps = {};
+interface MyState {
+  hasError: boolean;
+}
+class ErrorBoundry extends React.Component<MyProps, MyState> {
+  constructor(props: any) {
     super(props);
 
     this.state = {
-      hasError: false
+      hasError: false,
     };
   }
 
-  componentDidCatch(error, info) {
+  componentDidCatch(error: any, info: any) {
     this.setState({ hasError: true });
   }
 

@@ -12,7 +12,7 @@ const getRSSState = (state:RootState) => state.rss;
 export function* fetchRssAsync({ payload: { url } }:any) {
   try {
     const authState:IAuth = yield select(getAuthState);
-    const userid:string = authState.currentUser.uid;
+    const userid:string | undefined = authState.currentUser.uid;
     const { history } = yield select(getRSSState);
     const historyExists = history.some((x:any) => x.url === url);
     const { data } = yield axios.post(
@@ -45,7 +45,7 @@ export function* fetchRssAsync({ payload: { url } }:any) {
 export function* fetchRssHistoryAsync() {
   try {
     const authState:IAuth = yield select(getAuthState);
-    const userid:string = authState.currentUser.uid;
+    const userid:string | undefined = authState.currentUser.uid;
     const { data } = yield axios.get(
       `https://br6czx0kl6.execute-api.us-east-1.amazonaws.com/dev/rssHistory/${userid}`
     );

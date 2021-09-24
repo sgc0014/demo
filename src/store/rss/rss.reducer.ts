@@ -28,9 +28,7 @@ const rssReducer = (state = INITIAL_STATE, action: any) => {
         isFetching: false,
       };
       updatedState.results = payload.data;
-      updatedState.history = _.uniq(
-        [].concat(updatedState.history, { url: payload.url })
-      );
+      updatedState.history = updatedState.history.push({ url: payload.url });
       return updatedState;
 
     case rssTypes.FETCH_RSS_FAIL:

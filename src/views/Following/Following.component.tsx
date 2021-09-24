@@ -72,7 +72,7 @@ const useStyles = makeStyles((theme: any) => ({
 }));
 
 interface IFollowingProps {
-  userState: IUserState;
+  userstate: IUserState;
   userHistoryState: IUserHistoryState;
   onSPACEmailAlertStart: (value: string, emailAlert: any) => void;
   onSPACSMSAlertStart: (value: string, smsAlert: any) => void;
@@ -82,7 +82,7 @@ interface IFollowingProps {
 const Following = (props: IFollowingProps) => {
   const classes = useStyles();
   const {
-    userState: {
+    userstate: {
       profile: { emailAlert, smsAlert, contact },
     },
     userHistoryState: { follows, results },

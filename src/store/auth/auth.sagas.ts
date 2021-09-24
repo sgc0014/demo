@@ -9,22 +9,25 @@ import { showSnackbarNotification } from "../notification/notification.actions";
 
 export function* loadUserAsync() {
   try {
+  
     yield Auth.currentSession();
     const { username, attributes } = yield Auth.currentAuthenticatedUser();
-    const uid = attributes.sub;
-    const userData = {
-      username,
-      uid,
-      name: attributes.name,
-      email: attributes.email,
-    };
-    console.log("user logged in");
-    yield put(userActions.fetchProfileStart(uid));
-    console.log(" fetch profile success");
-    yield put(userHistoryActions.fetchFollowList(uid));
-    // load details to auth state
-    console.log("1 load user success");
-    yield put(authActions.loadUserSuccess(userData));
+    if (username && attributes) {
+      const uid = attributes.sub;
+      const userData = {
+        username,
+        uid,
+        name: attributes.name,
+        email: attributes.email,
+      };
+      console.log("user logged in");
+      yield put(userActions.fetchProfileStart(uid));
+      console.log(" fetch profile success");
+      yield put(userHistoryActions.fetchFollowList(uid));
+      // load details to auth state
+      console.log("1 load user success");
+      yield put(authActions.loadUserSuccess(userData));
+    }
   } catch (err) {
     console.error("err", err);
     // yield put(loadUserFail(err));

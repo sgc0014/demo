@@ -5,7 +5,7 @@ import { INotificationState } from "src/interface/";
 const INITIAL_STATE: INotificationState = {
   snackbarNotification: {
     open: false,
-    status: null,
+    status: "success",
     message: "",
   },
 };

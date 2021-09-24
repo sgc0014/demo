@@ -11,7 +11,7 @@ const getUserHistoryState = (state: RootState) => state.userHistory;
 export function* fetchNewsAsync() {
  
   const authState: IAuth = yield select(getAuthState);
-  const userid: string = authState.currentUser.uid;
+  const userid: string | undefined = authState.currentUser.uid;
   const userHistoryState: IUserHistoryState = yield select(getUserHistoryState);
   const { follows } = userHistoryState;
   try {

@@ -198,7 +198,7 @@ const DrawerItems = (props: IDarwerProps) => {
                 style={{ textTransform: "capitalize" }}
                 className={classes.name}
               >
-                {name || username.toString().split("@")[0]}
+                {name || (username && username.toString().split("@")[0])}
               </Typography>
               <Typography component="div" className={classes.name}>
                 {username}

@@ -1,4 +1,5 @@
-import * as redditTypes from './reddit.types';
+import { HYDRATE } from "next-redux-wrapper";
+import * as redditTypes from "./reddit.types";
 
 const INITIAL_STATE = {
   isFetchingTop: false,
@@ -7,45 +8,48 @@ const INITIAL_STATE = {
   query: null,
   posts: [],
   comments: [],
-  errors: {}
+  errors: {},
+  test: {},
 };
 
-const redditReducer = (state = INITIAL_STATE, action:any) => {
+const redditReducer = (state = INITIAL_STATE, action: any) => {
   const { type, payload } = action;
-  let updatedState:any = {};
+  let updatedState: any = {};
   switch (type) {
+    case HYDRATE: {
+      return { ...state, ...action.payload.reddit };
+    }
     case redditTypes.FETCH_TOP_QUERY_START:
       return {
         ...state,
-        isFetchingTop: true
+        isFetchingTop: true,
       };
 
     case redditTypes.FETCH_TOP_QUERY_SUCCESS:
-      console.log('FETCH_TOP_QUERY_SUCCESS', payload);
       return {
         ...state,
         isFetchingTop: false,
-        topList: payload
+        topList: payload,
       };
 
     case redditTypes.FETCH_TOP_QUERY_FAIL:
       return {
         ...state,
         isFetchingTop: false,
-        errors: payload
+        errors: payload,
       };
 
     case redditTypes.FETCH_POSTS_START:
       return {
         ...state,
         isFetching: true,
-        query: payload.query
+        query: payload.query,
       };
 
     case redditTypes.FETCH_POSTS_SUCCESS:
       updatedState = {
         ...state,
-        isFetching: false
+        isFetching: false,
       };
       updatedState.posts = payload;
       return updatedState;
@@ -54,28 +58,28 @@ const redditReducer = (state = INITIAL_STATE, action:any) => {
       return {
         ...state,
         isFetching: false,
-        errors: payload
+        errors: payload,
       };
 
     case redditTypes.FETCH_COMMENTS_START:
       return {
         ...state,
         isFetching: true,
-        query: payload.query
+        query: payload.query,
       };
 
     case redditTypes.FETCH_COMMENTS_SUCCESS:
       return {
         ...state,
         isFetching: false,
-        comments: payload
+        comments: payload,
       };
 
     case redditTypes.FETCH_COMMENTS_FAIL:
       return {
         ...state,
         isFetching: false,
-        errors: payload
+        errors: payload,
       };
 
     default:
@@ -84,4 +88,3 @@ const redditReducer = (state = INITIAL_STATE, action:any) => {
 };
 
 export default redditReducer;
-

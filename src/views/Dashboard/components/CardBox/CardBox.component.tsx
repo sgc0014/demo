@@ -150,7 +150,7 @@ const CardBox = ({
   return (
     <Card className={clsx(classes.root, className)}>
       <CardContent style={{ position: "relative" }}>
-        <Grid container justify="space-between">
+        <Grid container justifyContent="space-between">
           <Grid item>
             <Typography
               className={classes.title}
