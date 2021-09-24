@@ -13,7 +13,7 @@ export function* fetchUserAsync() {
   try {
     const authState:IAuth = yield select(getAuthState);
     const userid = authState.currentUser.uid;
-    console.log(userid)
+   
     if (userid) {
       const { data } = yield axios.get(
         'https://br6czx0kl6.execute-api.us-east-1.amazonaws.com/dev/user/list'

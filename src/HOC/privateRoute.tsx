@@ -1,16 +1,15 @@
-import React from "react";
 import { useRouter } from "next/router";
-import { connect, useDispatch, useSelector } from "react-redux";
-import PropTypes from "prop-types";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import SimpleBackdrop from "src/common/OverlayLoading";
-import { setPathname } from "src/store/siteCoordinator/siteCoordinator.actions";
 import { RootState } from "src/store/";
-import { loadUserStart } from "@store/auth/auth.actions";
+import { setPathname } from "src/store/siteCoordinator/siteCoordinator.actions";
 
 const PrivateRoute = (Component: any) => {
   const HOCComponent = () => {
     const dispatch = useDispatch();
     const router = useRouter();
+    
 
     const { isAuthenticated, loading } = useSelector(
       (state: RootState) => state.auth

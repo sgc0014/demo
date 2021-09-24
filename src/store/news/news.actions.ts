@@ -1,7 +1,7 @@
 import * as newsTypes from './news.types';
 
 export const fetchNewsStart = () => {
-  console.log('action');
+ 
   return ({
     type: newsTypes.FETCH_NEWS_START,
     payload: { }
