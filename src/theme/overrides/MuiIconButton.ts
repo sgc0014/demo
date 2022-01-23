@@ -1,6 +1,8 @@
+import { StyleRules } from '@material-ui/core/styles/withStyles';
+import { IconButtonClassKey } from '@material-ui/core/IconButton';
 import palette from '../palette';
 
-export default {
+const MuiIconButton: Partial<StyleRules<IconButtonClassKey, {}>> = {
   root: {
     color: palette.icon,
     '&:hover': {
@@ -8,3 +10,5 @@ export default {
     }
   }
 };
+
+export default MuiIconButton;

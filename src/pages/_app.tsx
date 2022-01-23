@@ -1,11 +1,4 @@
 import { ThemeProvider } from "@material-ui/core/styles";
-import { loadUserStart } from "@store/auth/auth.actions";
-import {
-  fetchSpacListStart,
-  fetchTopListStart,
-} from "@store/spacrun/spacrun.actions";
-import Notifications from "@views/Notifications";
-import Amplify from "aws-amplify";
 import Head from "next/head";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -20,17 +13,6 @@ declare global {
   }
 }
 
-//aws configure
-Amplify.configure({
-  Auth: {
-    region: config.cognito.REGION,
-    userPoolId: config.cognito.USER_POOL_ID,
-    identityPoolId: config.cognito.IDENTITY_POOL_ID,
-    userPoolWebClientId: config.cognito.APP_CLIENT_ID,
-  },
-  ssr: true,
-});
-
 const MyApp = (props: any) => {
   const { Component, pageProps } = props;
   const dispatch = useDispatch();
@@ -43,15 +25,13 @@ const MyApp = (props: any) => {
       jssStyles.parentElement!.removeChild(jssStyles);
     }
 
-    dispatch(loadUserStart()); // fetchProfileDetails and fetchStripeDetails
-    // dispatch(fetchTopListStart());
-    dispatch(fetchSpacListStart());
+
   }, [dispatch]);
 
   return (
     <React.Fragment>
       <Head>
-        <title>Spacrun</title>
+        <title>4DT</title>
         <meta
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"
@@ -59,7 +39,6 @@ const MyApp = (props: any) => {
       </Head>
       <ThemeProvider theme={theme}>
         <Component {...pageProps} />
-        <Notifications />
       </ThemeProvider>
     </React.Fragment>
   );

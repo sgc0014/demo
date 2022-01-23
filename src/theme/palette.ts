@@ -1,59 +1,32 @@
-import { colors } from "@material-ui/core";
+import { PaletteOptions } from '@material-ui/core/styles/createPalette';
+import { colors } from '@material-ui/core';
 
-const white = "#FFFFFF";
-const black = "#000000";
-const spacblue = "#188EFB";
+const white = '#FFFFFF';
+const black = '#000000';
+const blue = '#2a398d';
+const beige = '#f5f0e4';
 
-export default {
-  black,
+const palette: PaletteOptions = {
   white,
-  spacblue,
+  black,
+  blue,
+  beige,
+  icon: '#eee',
   primary: {
-    contrastText: white,
-    dark: colors.indigo[900],
-    main: colors.indigo[500],
-    light: colors.indigo[100],
+    main: '#0086B9'
   },
   secondary: {
-    contrastText: white,
-    dark: colors.blue[900],
-    main: "#252525",
-    light: "#343434",
-  },
-  success: {
-    contrastText: white,
-    dark: colors.green[900],
-    main: colors.green[600],
-    light: colors.green[400],
-  },
-  info: {
-    contrastText: white,
-    dark: colors.blue[900],
-    main: colors.blue[600],
-    light: colors.blue[400],
-  },
-  warning: {
-    contrastText: white,
-    dark: colors.orange[900],
-    main: colors.orange[600],
-    light: colors.orange[400],
-  },
-  error: {
-    contrastText: white,
-    dark: colors.red[900],
-    main: colors.red[600],
-    light: colors.red[400],
+    main: '#FFFFFF'
   },
   text: {
-    primary: colors.blueGrey[900],
-    secondary: colors.blueGrey[600],
-    link: colors.blue[600],
+    primary: '#2A398D',
+    secondary: colors.blueGrey[600]
   },
   background: {
-    default: "#F4F6F8",
-    paper: white,
-    spacblue: spacblue,
+    default: white,
+    paper: white
   },
-  icon: colors.blueGrey[600],
-  divider: colors.grey[200],
+  divider: colors.grey[200]
 };
+
+export default palette;

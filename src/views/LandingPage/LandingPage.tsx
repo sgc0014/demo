@@ -11,8 +11,7 @@ import { IAuth } from "../../interface";
 import EarlyAccessDialog from "./components/EarlyAccessDialog";
 
 export interface ILandingProps {
-  onSetDialogOpen?: (value: boolean) => void;
-  auth: IAuth;
+  
 }
 const useStyles = makeStyles((theme) => ({
   footer: {
@@ -96,113 +95,12 @@ function Copyright() {
   );
 }
 const LandingPage: React.FC<ILandingProps> = ({
-  onSetDialogOpen,
-  auth: { isAuthenticated },
+ 
 }) => {
-  const classes = useStyles();
-
-  const isEarlyAccess = false;
-
-  const handleClickOpen = () => {
-    onSetDialogOpen && onSetDialogOpen(true);
-  };
 
   return (
     <>
-      <IconButton
-        aria-label="up-arrow"
-        className={classes.scrollUpIcon}
-        onClick={() => scrollToMainTop()}
-      >
-        <ExpandLessIcon />
-      </IconButton>
-      <Banner
-        isEarlyAccess={isEarlyAccess}
-        handleClickOpen={handleClickOpen}
-        isAuthenticated={isAuthenticated}
-      />
-      <div className={classes.mrgItem}>
-        <Features />
-      </div>
-      <Pricing
-        isEarlyAccess={isEarlyAccess}
-        handleClickOpen={handleClickOpen}
-      />
-      <footer className={classes.footer}>
-        <div className={classes.root} id="features-blog">
-          <Container>
-            <Grid item>
-              <div className={classes.footerLink}>
-                <Typography
-                  variant="inherit"
-                  component="div"
-                  className={classes.text}
-                >
-                  <Link href="/terms">
-                    <Typography className={classes.link}>
-                      Terms Of Service
-                    </Typography>
-                  </Link>
-                </Typography>
-                <Link href="/privacy">
-                  <Typography
-                    variant="inherit"
-                    component="div"
-                    className={classes.text}
-                    style={{ marginBottom: "0px" }}
-                  >
-                    <Typography className={classes.link}>
-                      Privacy Policy
-                    </Typography>
-                  </Typography>
-                </Link>
-                <Link href="/support">
-                <Typography
-                  className={classes.text}
-                  style={{ marginBottom: "2rem" }}
-                >
-                  <Typography className={classes.link}>Support</Typography>
-                </Typography>
-                </Link>
-              </div>
-              <Typography
-                variant="inherit"
-                component="div"
-                className={classes.text}
-              >
-                Disclaimer
-              </Typography>
-              <br />
-              <Typography
-                variant="inherit"
-                component="p"
-                className={classes.subText}
-              >
-                This site is for informational purposes only and does not
-                constitute any financial advice. Spacrun.com does not provide
-                any advices on investment; all information, ideas, and
-                strategies should not be construed as a recommendation to buy,
-                sell, or hold any security. Spacrun.com is not liable for any
-                investment decisions made by the users based on the information
-                available on the site. In addition, investment involves risk and
-                possible loss of investment capital. SPACs are risky
-                investments, and investments in them should be made with a great
-                deal of caution, regardless of their current performance.
-                Spacrun.com makes no representations or warranties of any kind,
-                express or implied, about the completeness, accuracy,
-                reliability, suitability or availability with respect to the
-                website or the information, products, services, or related
-                graphics contained on the website for any purpose. Any reliance
-                you place on such information is therefore strictly at your own
-                risk. Spacrun.com highly recommends you seek advice from a
-                professional.
-              </Typography>
-              <Copyright />
-            </Grid>
-          </Container>
-        </div>
-      </footer>
-      <EarlyAccessDialog />
+      
     </>
   );
 };
