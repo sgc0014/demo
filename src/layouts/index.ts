@@ -1,2 +1,1 @@
-export { default as Main } from './Main/main.container.tsx';
-
+export { default as Main } from './Main';

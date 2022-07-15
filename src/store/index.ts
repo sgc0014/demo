@@ -1,28 +1,50 @@
-import { applyMiddleware, createStore, Middleware } from "redux";
-import createSagaMiddleware from "redux-saga";
-import { createWrapper } from "next-redux-wrapper";
+import {
+  AnyAction,
+  applyMiddleware,
+  createStore,
+  Middleware,
+  Store,
+  StoreEnhancer
+} from 'redux';
+import createSagaMiddleware from 'redux-saga';
+import { Context, createWrapper, HYDRATE } from 'next-redux-wrapper';
 
-import rootReducer from "./root-reducer";
-import rootSaga from "./root-saga";
+import rootReducer from './root-reducer';
+import rootSaga from './root-saga';
 
-const bindMiddleware = (middleware: Middleware[]) => {
-  if (process.env.NODE_ENV !== "production") {
-    const { composeWithDevTools } = require("redux-devtools-extension");
+const bindMiddleware = (middleware: Middleware[]): StoreEnhancer => {
+  if (process.env.NODE_ENV !== 'production') {
+    const { composeWithDevTools } = require('redux-devtools-extension');
     return composeWithDevTools(applyMiddleware(...middleware));
   }
   return applyMiddleware(...middleware);
 };
 
-export const makeStore = () => {
-  const sagaMiddleware = createSagaMiddleware();
-  const store = createStore(rootReducer, bindMiddleware([sagaMiddleware]));
+const reducer:any = (state: RootState, action: AnyAction) => {
+  if (action.type === HYDRATE) {
+    const clientState = { ...state };
+    const serverState = { ...action.payload };
+    const nextState = { ...clientState, ...serverState };
 
-  store.sagaTask = sagaMiddleware.run(rootSaga);
+    return nextState;
+  }
 
-  return store;
+  return rootReducer(state, action);
 };
 
-let store = makeStore();
+export const makeStore:any = (context: Context) => {
+  // 1: Create the middleware
+  const sagaMiddleware = createSagaMiddleware();
 
-export type RootState = ReturnType<typeof store.getState>;
-export const wrapper = createWrapper(makeStore, { debug: true });
+  // 2: Add an extra parameter for applying middleware:
+  const store = createStore(reducer, bindMiddleware([sagaMiddleware]));
+
+  // 3: Run your sagas on server
+  store.sagaTask = sagaMiddleware.run(rootSaga);
+
+  // 4: now return the store:
+  return store;
+};
+export type RootState = ReturnType<typeof rootReducer>;
+
+export const wrapper = createWrapper<Store<RootState>>(makeStore);

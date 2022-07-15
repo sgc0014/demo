@@ -1,108 +1,173 @@
-import React from "react";
-import { Banner, Features, Pricing } from "./components";
-import { Container, Grid, Typography } from "@material-ui/core";
-import IconButton from "@material-ui/core/IconButton";
-import ExpandLessIcon from "@material-ui/icons/ExpandLess";
-import Link from "next/link";
-import { makeStyles } from "@material-ui/core/styles";
-import container from "./LandingPage.container";
-import { scrollToMainTop } from "@common/utils";
-import { IAuth } from "../../interface";
-import EarlyAccessDialog from "./components/EarlyAccessDialog";
+import {
+  Autocomplete,
+  Box,
+  Container,
+  TextField,
+  Typography,
+  Paper,
+  Grid,
+  Divider,
+  Button
+} from '@mui/material';
+import { makeStyles } from '@mui/styles';
+import { RootState } from 'src/store/';
+import { setApp } from '@store/app.action';
+import axios from 'axios';
+import { throttle } from 'lodash';
+import { useRouter } from 'next/dist/client/router';
+import Link from 'next/link';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import container from './LandingPage.container';
 
-export interface ILandingProps {
-  
-}
-const useStyles = makeStyles((theme) => ({
-  footer: {
-    color: "rgb(204 204 204)",
-    padding: theme.spacing(2),
-    background:
-      "linear-gradient(to right, #083962, #083962, #083962, #083962, #083962)",
+export interface ILandingProps {}
+const useStyles = makeStyles((theme: any) => ({
+  header: {
+    fontSize: '14px',
+    color: '#575757',
+    textTransform: 'capitalize'
   },
-  root: {
-    marginTop: "3em",
-    [theme.breakpoints.up("sm")]: {
-      marginTop: "5em 0",
+  subheader: {
+    paddingBottom: 15,
+    paddingTop: 10,
+    fontSize: 17,
+    color: 'black'
+  },
+  subheader1: {
+    paddingBottom: 15,
+    fontSize: 20,
+    color: 'black',
+    fontWeight: 400
+  },
+  btn: {
+    backgroundColor: 'red',
+    '& :hover': {
+      backgroundColor: 'red'
     },
-  },
-  mrgItem: {
-    // marginTop: '6em',
-    [theme.breakpoints.down("xs")]: {
-      marginTop: "0",
-    },
-  },
-  scrollUpIcon: {
-    right: 30,
-    bottom: 30,
-    color: "#fff",
-    position: "fixed",
-    background: "#a1acbb",
-    "&:hover": {
-      background: "#acb6c3",
-    },
-  },
-  text: {
-    fontWeight: 300,
-    marginTop: 10,
-    fontSize: "1.10rem",
-    letterSpacing: ".08em",
-    lineHeight: 1.55,
-  },
-  subText: {
-    color: "rgb(156 156 156)",
-    fontSize: "16px",
-    marginTop: 10,
-    fontWeight: 400,
-    lineHeight: 1.6,
-    textDecoration: "none",
-    textAlign: "left",
-  },
-  link: {
-    marginRight: 40,
-    color: "rgb(204 204 204)",
-    textDecoration: "none",
-    fontWeight: 400,
-    "&:hover": {
-      textDecoration: "underline",
-    },
-  },
-  footerLink: {
-    display: "flex",
-    flexDirection: "row",
-    [theme.breakpoints.down("sm")]: {
-      flexDirection: "column",
-    },
-  },
+    '& > *': {
+      color: 'white'
+    }
+  }
 }));
 
-function Copyright() {
+const ProductPage: React.FC<ILandingProps> = ({}) => {
   const classes = useStyles();
-  return (
-    <Link href="https://spacrun.com/">
-      <Typography
-        component="p"
-        variant="body2"
-        align="center"
-        className={classes.subText}
-        style={{ color: "#ffffff" }}
-      >
-        {"Copyright © "}
-        spacrun.com {new Date().getFullYear()}
-        {"."}
-      </Typography>
-    </Link>
+  const [inputValue, setInputValue] = React.useState('');
+  const [options, setOptions] = React.useState<any>([]);
+  const [value, setvalue] = React.useState<any>();
+
+  const fetch = React.useMemo(
+    () =>
+      throttle(
+        (request: { name: string }, callback: (results: any) => void) => {
+          axios
+            .post(
+              'https://staging.vogelme.com/api/privacy/v0.2/appstore/suggest',
+              {
+                app_name: 'facebook'
+              },
+              {
+                headers: {
+                  'x-lmd-api-key': '1f03dbf95ae642abbc66dd5cfb5797e5'
+                }
+              }
+            )
+            .then(({ data }) => callback(data))
+            .catch((err) => console.error(err));
+        },
+        200
+      ),
+    []
   );
-}
-const LandingPage: React.FC<ILandingProps> = ({
- 
-}) => {
+  React.useEffect(() => {
+    let active = true;
+
+    fetch({ name: inputValue }, (results?: any[]) => {
+      if (active) {
+        let newOptions = [] as any[];
+
+        if (results) {
+          newOptions = [...newOptions, ...results];
+        }
+
+        setOptions(newOptions);
+      }
+    });
+    return () => {
+      active = false;
+      setOptions([]);
+    };
+  }, [inputValue, fetch]);
+  const { app } = useSelector((state: RootState) => state.app);
+  const router = useRouter();
 
   return (
-    <>
-      
-    </>
+    <Container maxWidth="md">
+      <Box p={5} elevation={2} component={Paper}>
+        <Box mt={3} mb={4}>
+          <Typography>{app?.app_name}</Typography>
+        </Box>
+        <Grid container spacing={2}>
+          <Grid xs={5} item>
+            <Typography className={classes.header}>Overall</Typography>
+          </Grid>
+          <Grid xs={6} item>
+            <Button variant={'contained'} className={classes.btn}>
+              <Typography className={classes.header}>
+                {app?.privacyRating[0]?.grade}
+              </Typography>
+            </Button>
+          </Grid>
+          <Grid item xs={12}>
+            <Divider />
+          </Grid>
+          <Grid xs={5} item>
+            <Typography className={classes.header}>
+              Data types used for tracking
+            </Typography>
+          </Grid>
+          <Grid xs={6} item>
+            <Typography className={classes.header}>
+              {app?.privacyInfo[0]?.description}
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Divider />
+          </Grid>
+          <Grid xs={5} item>
+            <Typography className={classes.header}>
+              Top three data types that contribute most to privacy risk
+            </Typography>
+          </Grid>
+          <Grid xs={6} item>
+            <Typography className={classes.header}>
+              {app?.privacyInfo &&
+                app?.privacyInfo[0]?.dataCategories &&
+                app?.privacyInfo[0]?.dataCategories
+                  .slice(0, 3)
+                  .map((item: any) => item?.dataCategory)
+                  .join(', ')}
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Divider />
+          </Grid>
+          <Grid xs={5} item>
+            <Typography className={classes.header}>
+              Number of data types linked to you that are collected for reasons
+              other than app functionality/product personalization
+            </Typography>
+          </Grid>
+          <Grid xs={6} item>
+            {console.log(app)}
+            <Typography className={classes.header}>
+              {app?.privacyRating[0]?.data_types_linked_to_you_count}
+            </Typography>
+          </Grid>
+        </Grid>
+      </Box>
+    </Container>
   );
 };
 
-export default container(LandingPage);
+export default container(ProductPage);
