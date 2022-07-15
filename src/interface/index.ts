@@ -1,4 +1,3 @@
-import { Color } from "@material-ui/lab";
 
 export interface IAuth {
   isAuthenticated: boolean;
