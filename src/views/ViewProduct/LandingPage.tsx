@@ -47,22 +47,24 @@ const LandingPage: React.FC<ILandingProps> = ({}) => {
     () =>
       throttle(
         (request: { name: string }, callback: (results: any) => void) => {
-          axios
-            .post(
-              'https://staging.vogelme.com/api/privacy/v0.2/appstore/suggest',
-              {
-                app_name: request.name
-              },
-              {
-                headers: {
-                  'x-lmd-api-key': '1f03dbf95ae642abbc66dd5cfb5797e5'
+          if (request.name.length > 3) {
+            axios
+              .post(
+                'https://staging.vogelme.com/api/privacy/v0.2/appstore/suggest',
+                {
+                  app_name: request.name
+                },
+                {
+                  headers: {
+                    'x-lmd-api-key': '1f03dbf95ae642abbc66dd5cfb5797e5'
+                  }
                 }
-              }
-            )
-            .then(({ data }) => callback(data))
-            .catch((err) => console.error(err));
+              )
+              .then(({ data }) => callback(data))
+              .catch((err) => console.error(err));
+          }
         },
-        1000
+        2000
       ),
     []
   );

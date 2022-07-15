@@ -56,50 +56,50 @@ const ProductPage: React.FC<ILandingProps> = ({}) => {
   const [options, setOptions] = React.useState<any>([]);
   const [value, setvalue] = React.useState<any>();
 
-  const fetch = React.useMemo(
-    () =>
-      throttle(
-        (request: { name: string }, callback: (results: any) => void) => {
-          if (request.name && request.name.length > 3) {
-            axios
-              .post(
-                'https://staging.vogelme.com/api/privacy/v0.2/appstore/suggest',
-                {
-                  app_name: 'facebook'
-                },
-                {
-                  headers: {
-                    'x-lmd-api-key': '1f03dbf95ae642abbc66dd5cfb5797e5'
-                  }
-                }
-              )
-              .then(({ data }) => callback(data))
-              .catch((err) => console.error(err));
-          }
-        },
-        2000
-      ),
-    []
-  );
-  React.useEffect(() => {
-    let active = true;
+  // const fetch = React.useMemo(
+  //   () =>
+  //     throttle(
+  //       (request: { name: string }, callback: (results: any) => void) => {
+  //         if (request.name && request.name.length > 3) {
+  //           axios
+  //             .post(
+  //               'https://staging.vogelme.com/api/privacy/v0.2/appstore/suggest',
+  //               {
+  //                 app_name: 'facebook'
+  //               },
+  //               {
+  //                 headers: {
+  //                   'x-lmd-api-key': '1f03dbf95ae642abbc66dd5cfb5797e5'
+  //                 }
+  //               }
+  //             )
+  //             .then(({ data }) => callback(data))
+  //             .catch((err) => console.error(err));
+  //         }
+  //       },
+  //       2000
+  //     ),
+  //   []
+  // );
+  // React.useEffect(() => {
+  //   let active = true;
 
-    fetch({ name: inputValue }, (results?: any[]) => {
-      if (active) {
-        let newOptions = [] as any[];
+  //   fetch({ name: inputValue }, (results?: any[]) => {
+  //     if (active) {
+  //       let newOptions = [] as any[];
 
-        if (results) {
-          newOptions = [...newOptions, ...results];
-        }
+  //       if (results) {
+  //         newOptions = [...newOptions, ...results];
+  //       }
 
-        setOptions(newOptions);
-      }
-    });
-    return () => {
-      active = false;
-      setOptions([]);
-    };
-  }, [inputValue, fetch]);
+  //       setOptions(newOptions);
+  //     }
+  //   });
+  //   return () => {
+  //     active = false;
+  //     setOptions([]);
+  //   };
+  // }, [inputValue, fetch]);
   const { app } = useSelector((state: RootState) => state.app);
   const router = useRouter();
 
