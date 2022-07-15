@@ -75,7 +75,7 @@ const ProductPage: React.FC<ILandingProps> = ({}) => {
             .then(({ data }) => callback(data))
             .catch((err) => console.error(err));
         },
-        200
+        2000
       ),
     []
   );
