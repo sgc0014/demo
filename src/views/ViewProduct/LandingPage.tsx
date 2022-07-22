@@ -50,7 +50,7 @@ const LandingPage: React.FC<ILandingProps> = ({}) => {
           if (request.name.length > 3) {
             axios
               .post(
-                'https://staging.vogelme.com/api/privacy/v0.2/appstore/suggest',
+                'https://staging.vogelme.com/api/privacy/v0.5/appstore/suggest',
                 {
                   app_name: request.name
                 },

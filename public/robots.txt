@@ -1,0 +1,10 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://demo-pi-two.vercel.app/
+
+# Sitemaps
+Sitemap: https://demo-pi-two.vercel.app/sitemap.xml
+Sitemap: https://demo-pi-two.vercel.app/server-sitemap.xml

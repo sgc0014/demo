@@ -57,8 +57,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     // store.dispatch(fetchYachtsStart());
     store.dispatch(
       getApp({
-        app_id: context.query.slug,
-        app_name: context.query.name
+        slug_app_name: context.query.slug
       })
     );
     store.dispatch(END);

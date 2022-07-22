@@ -8,7 +8,7 @@ export function* getAppASync({ payload: { formData } }: AnyAction) {
   try {
     console.log('123e', formData);
     const { data } = yield axios.post(
-      'https://staging.vogelme.com/api/privacy/v0.2/app/info',
+      'https://staging.vogelme.com/api/privacy/v0.5/app/info',
       {
         ...formData
       },
